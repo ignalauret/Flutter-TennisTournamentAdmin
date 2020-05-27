@@ -76,6 +76,7 @@ class DrawMatchCard extends StatelessWidget {
       http.put(
           "https://tennis-tournament-4990d.firebaseio.com/tournaments/$tid/winners/$category.json",
           body: json.encode("${idOfWinner(id1, id2, result[0], result[1])}"));
+      //TODO: Add points to players.
     }
   }
 
