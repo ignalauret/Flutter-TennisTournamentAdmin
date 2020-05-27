@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class AddTournamentsScreen extends StatefulWidget {
+  static const routeName = "/add-tournament";
   @override
   _AddTournamentsScreenState createState() => _AddTournamentsScreenState();
 }
@@ -55,7 +56,6 @@ class _AddTournamentsScreenState extends State<AddTournamentsScreen> {
         "draws": {"A" : draw},
       }),
     );
-    print(json.decode(response.body));
   }
 
   @override
@@ -63,7 +63,7 @@ class _AddTournamentsScreenState extends State<AddTournamentsScreen> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Torneos"),
+        title: Text("Crear Torneo"),
       ),
       body: SingleChildScrollView(
         child: Container(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tennistournamentadmin/providers/tournaments.dart';
+import 'package:tennistournamentadmin/screens/add_tournament_screen.dart';
 import 'package:tennistournamentadmin/widgets/tournaments_list.dart';
 
 class TournamentScren extends StatelessWidget {
@@ -11,6 +12,14 @@ class TournamentScren extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Torneos"),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.add),
+            iconSize: 30,
+            onPressed: () =>
+                Navigator.of(context).pushNamed(AddTournamentsScreen.routeName),
+          ),
+        ],
       ),
       body: Container(
         child: FutureBuilder(

@@ -1,11 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:tennistournamentadmin/utils/constants.dart';
-import 'package:tennistournamentadmin/widgets/ranking_badge.dart';
-import '../models/tournament.dart';
-import 'package:http/http.dart' as http;
+import '../utils/constants.dart';
+import './ranking_badge.dart';
 
 class AddMatchDialog extends StatefulWidget {
   AddMatchDialog({
@@ -30,18 +26,28 @@ class _AddMatchDialogState extends State<AddMatchDialog> {
   Widget _buildPlayerName(String name, String ranking, bool winner) {
     return Container(
       width: 130,
+      height: DRAW_MATCH_HEIGHT * 0.32,
       child: Row(
         children: <Widget>[
           RankingBadge(
             ranking,
             size: 15,
           ),
-          Text(
-            name,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+          Container(
+            width: 90,
+            height: DRAW_MATCH_HEIGHT * 0.32,
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: Alignment.centerLeft,
+              child: Text(
+                name,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                textAlign: TextAlign.start,
+              ),
+            ),
           ),
           SizedBox(
-            width: 10,
+            width: 5,
           ),
           if (winner)
             Icon(
@@ -53,9 +59,10 @@ class _AddMatchDialogState extends State<AddMatchDialog> {
       ),
     );
   }
+
   void addMatch() {
     final List<String> result = [
-     result1[2].isEmpty ? result1[0] + "." + result1[1] : result1.join("."),
+      result1[2].isEmpty ? result1[0] + "." + result1[1] : result1.join("."),
       result2[2].isEmpty ? result2[0] + "." + result2[1] : result2.join("."),
       "25/05/2020"
     ];

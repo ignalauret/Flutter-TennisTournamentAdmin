@@ -46,7 +46,6 @@ class _AddPlayerScreenState extends State<AddPlayerScreen> {
         "https://tennis-tournament-4990d.firebaseio.com/players/$playersCount.json",
         body: player.toJson());
 
-    print(json.decode(response.body));
   }
 
   @override

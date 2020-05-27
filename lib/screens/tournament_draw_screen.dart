@@ -8,7 +8,7 @@ import '../providers/players.dart';
 import '../providers/ranking.dart';
 import '../utils/constants.dart';
 import '../utils/math_methods.dart';
-import './DrawMatchCard.dart';
+import '../widgets/DrawMatchCard.dart';
 
 class TournamentDraw extends StatelessWidget {
   static const routeName = "/tournament-draw";

@@ -60,17 +60,22 @@ class DrawMatchCard extends StatelessWidget {
     http.put(
         "https://tennis-tournament-4990d.firebaseio.com/tournaments/$tid/draws/$category/$matchIndex.json",
         body: json.encode("$id1,$id2,$matchesCount"));
-    // If its not the final, add winner to next match.
-    if(matchIndex != 0) {
+    // If its not the final, add winner to next match, else add the winner to the tournament winners.
+    if (matchIndex != 0) {
       final response = await http.get(
         "https://tennis-tournament-4990d.firebaseio.com/tournaments/$tid/draws/$category/${getNextMatchIndex(matchIndex)}.json",
       );
       final prevData = json.decode(response.body).toString();
       final arr = prevData.split(",");
-      arr[nextMatchPosition(matchIndex)] = idOfWinner(id1, id2, result[0], result[1]);
+      arr[nextMatchPosition(matchIndex)] =
+          idOfWinner(id1, id2, result[0], result[1]);
       http.put(
           "https://tennis-tournament-4990d.firebaseio.com/tournaments/$tid/draws/$category/${getNextMatchIndex(matchIndex)}.json",
           body: json.encode(arr.join(",")));
+    } else {
+      http.put(
+          "https://tennis-tournament-4990d.firebaseio.com/tournaments/$tid/winners/$category.json",
+          body: json.encode("${idOfWinner(id1, id2, result[0], result[1])}"));
     }
   }
 

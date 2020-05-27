@@ -40,7 +40,6 @@ Map<String, Draw> parseDraws(Map<String, List> draws) {
   draws.forEach((category, matches) {
     result.addAll({category: Draw([])});
     matches.forEach((match) {
-      print(match);
       result[category].draw.add(match);
     });
   });

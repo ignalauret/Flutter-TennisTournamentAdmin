@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tennistournamentadmin/screens/add_player_screen.dart';
+import 'package:tennistournamentadmin/screens/add_tournament_screen.dart';
 import 'package:tennistournamentadmin/screens/tournament_detail_screen.dart';
-import 'package:tennistournamentadmin/widgets/tournament_draw.dart';
+import 'package:tennistournamentadmin/screens/tournament_draw_screen.dart';
 import './screens/home_screen.dart';
 import './screens/player_screen.dart';
 import './screens/tournament_screen.dart';
@@ -54,6 +55,7 @@ class MyApp extends StatelessWidget {
           AddPlayerScreen.routeName: (_) => AddPlayerScreen(),
           TournamentDraw.routeName: (_) => TournamentDraw(),
           TournamentDetailScreen.routeName: (_) => TournamentDetailScreen(),
+          AddTournamentsScreen.routeName: (_) => AddTournamentsScreen(),
         },
       ),
     );

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tennistournamentadmin/widgets/tournament_draw.dart';
+import 'package:tennistournamentadmin/screens/tournament_draw_screen.dart';
 import '../models/tournament.dart';
 
 class TournamentDetailScreen extends StatelessWidget {
