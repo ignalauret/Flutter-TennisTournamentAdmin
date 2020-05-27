@@ -25,7 +25,8 @@ class Tournaments extends ChangeNotifier {
     final tournaments = await http
         .get("https://tennis-tournament-4990d.firebaseio.com/tournaments.json");
     final tournamentsList = json.decode(tournaments.body) as List;
-    final tournamentsCount = tournamentsList.length;
+    final tournamentsCount =
+        tournamentsList == null ? 0 : tournamentsList.length;
     tournament.id = tournamentsCount.toString();
     http.put(
       "https://tennis-tournament-4990d.firebaseio.com/tournaments/$tournamentsCount.json",
@@ -65,10 +66,11 @@ class Tournaments extends ChangeNotifier {
           "https://tennis-tournament-4990d.firebaseio.com/tournaments/${match.tournament}/winners/${match.category}.json",
           body: json.encode(
               "${idOfWinner(match.idPlayer1, match.idPlayer2, match.result1, match.result2)}"));
-      _tournaments[int.parse(match.tournament)].winners.update(
-          match.category,
-          (_) => idOfWinner(
-              match.idPlayer1, match.idPlayer2, match.result1, match.result2));
+      _tournaments[int.parse(match.tournament)].setWinner(
+        match.category,
+        idOfWinner(
+            match.idPlayer1, match.idPlayer2, match.result1, match.result2),
+      );
       //TODO: Add points to players.
     }
     notifyListeners();

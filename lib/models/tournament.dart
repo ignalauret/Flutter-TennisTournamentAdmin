@@ -12,7 +12,7 @@ class Tournament {
     @required this.players,
     @required this.start,
     @required this.end,
-    this.winners = const {"A": "", "B": "", "C": ""},
+    this.winners = const {},
     this.draws,
   });
 
@@ -75,5 +75,9 @@ class Tournament {
       if (playersList.contains(id)) result++;
     });
     return result;
+  }
+
+  void setWinner(String category, String playerId) {
+    winners.putIfAbsent(category, () => playerId);
   }
 }

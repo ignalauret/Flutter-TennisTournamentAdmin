@@ -35,7 +35,7 @@ class Matches extends ChangeNotifier {
     final matches = await http
         .get("https://tennis-tournament-4990d.firebaseio.com/matches.json");
     final matchesList = json.decode(matches.body) as List;
-    final matchesCount = matchesList.length;
+    final matchesCount = matchesList == null ? 0 : matchesList.length;
     match.id = matchesCount.toString();
     http.put(
       "https://tennis-tournament-4990d.firebaseio.com/matches/$matchesCount.json",

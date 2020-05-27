@@ -166,6 +166,8 @@ class _TournamentDrawState extends State<TournamentDraw> {
       ),
       body: Container(
         child: DiagonalScrollView(
+          maxHeight: tournament.draws[selectedCategory].drawHeight + 20,
+          maxWidth: 1000,
           child: Container(
             height: tournament.draws[selectedCategory].drawHeight + 20,
             width: 1000,

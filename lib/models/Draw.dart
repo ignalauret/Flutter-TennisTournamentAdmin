@@ -35,7 +35,7 @@ class Draw {
           "${playersIds[2 * i]},${playersIds[2 * i + 1]},";
     }
     if (nPlayers % 2 == 1) {
-      result[(nPlayers / 2).floor()] = "${playersIds[nPlayers - 1]},,";
+      result[nMatches - (nPlayers / 2).floor() - 1] = "${playersIds[nPlayers - 1]},,";
     }
     print(result);
     return result;
