@@ -23,21 +23,39 @@ class Draw {
   // Made static to use it in factory constructor.
   static List<String> buildDraw(List<String> playersIds) {
     final int nPlayers = playersIds.length;
+    if (nPlayers < 2) return [];
     final int nRounds = log2(nPlayers).ceil();
     final int nMatches = pow(2, nRounds) - 1;
+    // 2^n = sum(2^n-1, 2^n-2...) + 1
+    final int drawSize = nMatches + 1;
+    for (int i = 0; i < drawSize - nPlayers; i++) {
+      playersIds.add("-1");
+    }
     // Fill the draw with empty matches
     final List<String> result = List.generate(nMatches, (_) => ",,");
     // Add matches in order
     //TODO: Tournament ranking order.
-    //TODO: Byes.
-    for (int i = 0; i < (nPlayers / 2).floor(); i++) {
+    for (int i = 0; i < (drawSize / 2).floor(); i++) {
       result[nMatches - i - 1] =
           "${playersIds[2 * i]},${playersIds[2 * i + 1]},";
+      // Add to next match if opponent is Bye.
+      if (playersIds[2 * i] == "-1") {
+        result[getNextMatchIndex(nMatches - i - 1)] =
+            nextMatchPosition(nMatches - i - 1) == 0
+                ? "${playersIds[2 * i + 1]},,"
+                : ",${playersIds[2 * i + 1]},";
+        result[nMatches - i - 1] =
+            "${playersIds[2 * i]},${playersIds[2 * i + 1]},-1";
+      }
+      if (playersIds[2 * i + 1] == "-1") {
+        result[getNextMatchIndex(nMatches - i - 1)] =
+            nextMatchPosition(nMatches - i - 1) == 0
+                ? "${playersIds[2 * i]},,"
+                : ",${playersIds[2 * i]},";
+        result[nMatches - i - 1] =
+            "${playersIds[2 * i]},${playersIds[2 * i + 1]},-1";
+      }
     }
-    if (nPlayers % 2 == 1) {
-      result[nMatches - (nPlayers / 2).floor() - 1] = "${playersIds[nPlayers - 1]},,";
-    }
-    print(result);
     return result;
   }
 

@@ -21,23 +21,19 @@ class _AddTournamentsScreenState extends State<AddTournamentsScreen> {
   void addTournament() {
     final List<List<String>> playersList =
         players.map((playerIds) => playerIds.split(",")).toList();
+
     final Map<String, List<String>> playersMap = {};
-
-    playersMap.addAll({"A": [], "B": [], "C": []});
-    for (int j = 0; j < playersList[0].length; j++) {
-      playersMap["A"].add(playersList[0][j]);
-    }
-    for (int j = 0; j < playersList[1].length; j++) {
-      playersMap["B"].add(playersList[1][j]);
-    }
-    for (int j = 0; j < playersList[2].length; j++) {
-      playersMap["C"].add(playersList[2][j]);
-    }
-
     Map<String, Draw> draws = {};
-    draws.addAll(
-      {"A": Draw.fromPlayerList(playersList[0])},
-    );
+
+    for (int i = 0; i < Categories.length; i++) {
+      playersMap.addAll({Categories[i]: []});
+      for (int j = 0; j < playersList[i].length; j++) {
+        playersMap[Categories[i]].add(playersList[i][j]);
+      }
+      draws.addAll(
+        {Categories[i]: Draw.fromPlayerList(playersList[i])},
+      );
+    }
 
     final tournament = Tournament(
         name: name,

@@ -1,11 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:tennistournamentadmin/providers/tournaments.dart';
+import '../models/tournament.dart';
+import '../providers/tournaments.dart';
 import '../models/match.dart';
 import 'package:http/http.dart' as http;
-
-const Categories = ["A", "B", "C"];
 
 class Matches extends ChangeNotifier {
   Matches(this._tournamentsData, this._matches);
@@ -67,7 +66,6 @@ class Matches extends ChangeNotifier {
   }
 
   Match getMatchById(String id) {
-    print("getMatchByID: $id, length: ${_matches.length}");
     return _matches.firstWhere((match) => match.id == id);
   }
 }

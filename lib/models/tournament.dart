@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:tennistournamentadmin/models/Draw.dart';
 import 'package:tennistournamentadmin/utils/parsers.dart';
 
+const List<String> Categories = const ["A", "B", "C"];
+
 class Tournament {
   Tournament({
     this.id,
@@ -22,7 +24,9 @@ class Tournament {
         club = tournamentData["club"],
         start = parseDate(tournamentData["start"]),
         end = parseDate(tournamentData["end"]),
-        winners = Map<String, String>.from(tournamentData["winners"]),
+        winners = tournamentData["winners"] == null
+            ? {}
+            : Map<String, String>.from(tournamentData["winners"]),
         players =
             parsePlayers(Map<String, List>.from(tournamentData["players"])),
         draws = parseDraws(Map<String, List>.from(tournamentData["draws"]));
@@ -58,10 +62,12 @@ class Tournament {
   }
 
   bool isWinner(String id, String category) {
+    if(!winners.containsKey(category)) return false;
     return winners[category] == id;
   }
 
   int getPlayerTitles(String id) {
+    if(winners.isEmpty) return 0;
     int result = 0;
     winners.forEach((category, pid) {
       if (pid == id) result++;

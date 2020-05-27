@@ -14,6 +14,7 @@ class Tournaments extends ChangeNotifier {
     final response = await http
         .get("https://tennis-tournament-4990d.firebaseio.com/tournaments.json");
     final responseData = json.decode(response.body) as List<dynamic>;
+    print(responseData);
     for (int i = 0; i < responseData.length; i++) {
       final Map<String, dynamic> tournamentData = responseData[i];
       _tournaments.add(Tournament.fromJson(i.toString(), tournamentData));

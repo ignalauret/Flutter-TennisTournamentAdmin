@@ -7,8 +7,15 @@ class TournamentsList extends StatelessWidget {
   final List<Tournament> tournaments;
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(itemBuilder: (context, index) {
-      return TournamentListItem(tournaments[index]);
-    }, itemCount: tournaments.length,);
+    if (tournaments == null)
+      return Center(
+        child: Text("No hay torneos"),
+      );
+    return ListView.builder(
+      itemBuilder: (context, index) {
+        return TournamentListItem(tournaments[index]);
+      },
+      itemCount: tournaments.length,
+    );
   }
 }

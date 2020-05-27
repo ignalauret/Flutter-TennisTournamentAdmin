@@ -1,7 +1,6 @@
 import 'package:diagonal_scrollview/diagonal_scrollview.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:diagonal_scrollview/diagonal_scrollview.dart';
 import '../models/tournament.dart';
 import '../models/match.dart';
 import '../providers/matches.dart';
@@ -39,6 +38,48 @@ class _TournamentDrawState extends State<TournamentDraw> {
         result1: match.getColouredResult(true),
         result2: match.getColouredResult(false),
         isFirstWinner: match.isFirstWinner,
+      ),
+    );
+  }
+
+  Widget _buildByeMatch(
+      String idPlayer1,
+      String idPlayer2,
+      double bottomMargin,
+      Ranking rankingData,
+      Players playerData,
+      String category,
+      ) {
+    String name1;
+    String name2;
+    String ranking1;
+    String ranking2;
+    bool isFirstWinner;
+    if (idPlayer1 == "-1") {
+      name1 = "Bye";
+      name2 = playerData.getPlayerName(idPlayer2);
+      ranking1 = "-";
+      ranking2 = rankingData.getRankingOf(idPlayer2, category);
+      isFirstWinner = false;
+    } else {
+      name1 = playerData.getPlayerName(idPlayer1);
+      name2 = "Bye";
+      ranking1 = rankingData.getRankingOf(idPlayer1, category);
+      ranking2 = "-";
+      isFirstWinner = true;
+    }
+    return Container(
+      height: DRAW_MATCH_HEIGHT,
+      margin: EdgeInsets.only(bottom: bottomMargin),
+      alignment: Alignment.center,
+      child: DrawMatchCard(
+        name1: name1,
+        name2: name2,
+        ranking1: ranking1,
+        ranking2: ranking2,
+        result1: [" ", " ", " "],
+        result2: [" ", " ", " "],
+        isFirstWinner: isFirstWinner,
       ),
     );
   }
@@ -93,16 +134,7 @@ class _TournamentDrawState extends State<TournamentDraw> {
     final List<Widget> result = [];
     for (int i = 0; i < matches.length; i++) {
       final data = matches[i].split(",");
-      if (data[2] != "")
-        result.add(
-          _buildMatchCard(
-            matchesData.getMatchById(data[2]),
-            playerData,
-            rankingData,
-            getMargin(tournament.draws[selectedCategory], matches.length, i),
-          ),
-        );
-      else
+      if (data[2] == "")
         result.add(
           _buildUnplayedMatch(
             title,
@@ -111,6 +143,23 @@ class _TournamentDrawState extends State<TournamentDraw> {
             selectedCategory,
             data[0],
             data[1],
+            playerData,
+            rankingData,
+            getMargin(tournament.draws[selectedCategory], matches.length, i),
+          ),
+        );
+      else if (data[2] == "-1")
+        result.add(_buildByeMatch(
+            data[0],
+            data[1],
+            getMargin(tournament.draws[selectedCategory], matches.length, i),
+            rankingData,
+            playerData,
+            selectedCategory));
+      else
+        result.add(
+          _buildMatchCard(
+            matchesData.getMatchById(data[2]),
             playerData,
             rankingData,
             getMargin(tournament.draws[selectedCategory], matches.length, i),
@@ -140,6 +189,7 @@ class _TournamentDrawState extends State<TournamentDraw> {
               getTopOffset(tournament.draws[selectedCategory], matches.length),
         ),
         ..._buildMatches(
+            title: title,
             tournament: tournament,
             selectedCategory: selectedCategory,
             matchesData: matchesData,
