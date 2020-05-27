@@ -23,16 +23,18 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<Players>(
           create: (_) => Players(),
         ),
-        ChangeNotifierProvider<Matches>(
-          create: (_) => Matches(),
+        ChangeNotifierProvider<Tournaments>(
+          create: (_) => Tournaments(),
+        ),
+        ChangeNotifierProxyProvider<Tournaments, Matches>(
+          create: (_) => Matches(null, []),
+          update: (context, tournamentsData, prevMatches) => Matches(tournamentsData, prevMatches.matches),
         ),
         ChangeNotifierProxyProvider<Players, Ranking>(
           create: (ctx) => Ranking(null),
           update: (context, players, prev) => Ranking(players.players),
         ),
-        ChangeNotifierProvider<Tournaments>(
-          create: (_) => Tournaments(),
-        ),
+
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

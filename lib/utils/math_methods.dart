@@ -39,10 +39,9 @@ int nextMatchPosition(int index) {
   return (index + 1) % 2;
 }
 
-String idOfWinner(String id1, String id2, String result1, String result2) {
-  final arr1 = result1.split(".");
-  final arr2 = result2.split(".");
-  if(int.parse(arr1.last) > int.parse(arr2.last)) {
+String idOfWinner(
+    String id1, String id2, List<String> result1, List<String> result2) {
+  if (int.parse(result1.last) > int.parse(result2.last)) {
     // First player won.
     return id1;
   } else {

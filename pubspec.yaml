@@ -17,7 +17,7 @@ environment:
   sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
-  bidirectional_scroll_view:
+  diagonal_scrollview:  ^0.1.0
   provider:
   http:
   flutter:

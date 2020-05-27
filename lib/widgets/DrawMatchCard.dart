@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:tennistournamentadmin/utils/math_methods.dart';
+import 'package:provider/provider.dart';
+import 'package:tennistournamentadmin/providers/matches.dart';
+import 'package:tennistournamentadmin/utils/parsers.dart';
 import 'package:tennistournamentadmin/widgets/add_match_dialog.dart';
 import '../utils/constants.dart';
+import '../models/match.dart';
 import './ranking_badge.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class DrawMatchCard extends StatelessWidget {
   DrawMatchCard({
@@ -37,47 +38,18 @@ class DrawMatchCard extends StatelessWidget {
   final String category;
   final String round;
 
-  Future<void> addMatch(List<String> result) async {
-    // Get matches count and add match at next available index.
-    final matches = await http
-        .get("https://tennis-tournament-4990d.firebaseio.com/matches.json");
-    final matchesList = json.decode(matches.body) as List;
-    final matchesCount = matchesList.length;
-    http.put(
-      "https://tennis-tournament-4990d.firebaseio.com/matches/$matchesCount.json",
-      body: json.encode({
-        "player1": id1,
-        "player2": id2,
-        "result1": result[0],
-        "result2": result[1],
-        "date": result[2],
-        "tournament": tid,
-        "category": category,
-        "round": round,
-      }),
+  Future<void> addMatch(List<String> result, BuildContext context) async {
+    final Match match = Match(
+      idPlayer1: id1,
+      idPlayer2: id2,
+      result1: parseResult(result[0]),
+      result2: parseResult(result[1]),
+      date: parseDate(result[2]),
+      tournament: tid,
+      category: category,
+      round: round,
     );
-    // Add match to the tournament.
-    http.put(
-        "https://tennis-tournament-4990d.firebaseio.com/tournaments/$tid/draws/$category/$matchIndex.json",
-        body: json.encode("$id1,$id2,$matchesCount"));
-    // If its not the final, add winner to next match, else add the winner to the tournament winners.
-    if (matchIndex != 0) {
-      final response = await http.get(
-        "https://tennis-tournament-4990d.firebaseio.com/tournaments/$tid/draws/$category/${getNextMatchIndex(matchIndex)}.json",
-      );
-      final prevData = json.decode(response.body).toString();
-      final arr = prevData.split(",");
-      arr[nextMatchPosition(matchIndex)] =
-          idOfWinner(id1, id2, result[0], result[1]);
-      http.put(
-          "https://tennis-tournament-4990d.firebaseio.com/tournaments/$tid/draws/$category/${getNextMatchIndex(matchIndex)}.json",
-          body: json.encode(arr.join(",")));
-    } else {
-      http.put(
-          "https://tennis-tournament-4990d.firebaseio.com/tournaments/$tid/winners/$category.json",
-          body: json.encode("${idOfWinner(id1, id2, result[0], result[1])}"));
-      //TODO: Add points to players.
-    }
+    Provider.of<Matches>(context, listen: false).addMatch(match, matchIndex);
   }
 
   Widget _buildPlayerName(String name, String ranking, bool winner) {
@@ -202,7 +174,7 @@ class DrawMatchCard extends StatelessWidget {
                                   ranking1: ranking1,
                                 ),
                               ).then((result) {
-                                addMatch(result);
+                                addMatch(result, context);
                               });
                             },
                           )

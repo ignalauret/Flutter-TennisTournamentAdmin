@@ -17,6 +17,9 @@ List<String> parseResult(String result) {
   return result.split(".");
 }
 
+String encodeResult(List<String> result) {
+  return result.join(".");
+}
 
 DateTime parseDate(String date) {
   final list = date.split("/");
@@ -34,14 +37,19 @@ String encodeDate(DateTime date) {
   return "$day/$month/$year";
 }
 
-
 Map<String, Draw> parseDraws(Map<String, List> draws) {
   final Map<String, Draw> result = {};
   draws.forEach((category, matches) {
     result.addAll({category: Draw([])});
     matches.forEach((match) {
-      result[category].draw.add(match);
+      result[category].addMatch(match);
     });
   });
+  return result;
+}
+
+Map<String, List<String>> encodeDraws(Map<String, Draw> draws) {
+  final Map<String, List<String>> result = {};
+  draws.forEach((category, draw) => result.addAll({category: draw.draw}));
   return result;
 }

@@ -1,16 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:tennistournamentadmin/models/Draw.dart';
 import 'package:tennistournamentadmin/utils/parsers.dart';
 
 class Tournament {
   Tournament({
-    @required this.id,
+    this.id,
     @required this.name,
     @required this.club,
     @required this.players,
     @required this.start,
     @required this.end,
-    this.winners = const {"A": "0", "B": "", "C": ""},
+    this.winners = const {"A": "", "B": "", "C": ""},
     this.draws,
   });
 
@@ -21,10 +23,11 @@ class Tournament {
         start = parseDate(tournamentData["start"]),
         end = parseDate(tournamentData["end"]),
         winners = Map<String, String>.from(tournamentData["winners"]),
-        players = parsePlayers(Map<String, List>.from(tournamentData["players"])),
-        draws = parseDraws(Map<String,List>.from(tournamentData["draws"]));
+        players =
+            parsePlayers(Map<String, List>.from(tournamentData["players"])),
+        draws = parseDraws(Map<String, List>.from(tournamentData["draws"]));
 
-  final String id;
+  String id;
   final String name;
   final String club;
   final Map<String, List<String>> players;
@@ -32,6 +35,21 @@ class Tournament {
   final DateTime end;
   final Map<String, String> winners;
   final Map<String, Draw> draws;
+
+  String toJson() {
+    return json.encode(
+      {
+        "id": this.id,
+        "name": this.name,
+        "club": this.club,
+        "start": encodeDate(this.start),
+        "end": encodeDate(this.end),
+        "winners": this.winners,
+        "players": this.players,
+        "draws": encodeDraws(this.draws),
+      },
+    );
+  }
 
   int get playerCount {
     int result = 0;
