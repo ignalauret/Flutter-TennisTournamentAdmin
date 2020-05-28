@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tennistournamentadmin/models/player.dart';
+import 'package:tennistournamentadmin/screens/player_detail_screen.dart';
 import '../providers/players.dart';
 import 'player_list_item.dart';
 
@@ -9,17 +10,14 @@ class PlayersList extends StatelessWidget {
   final List<Player> players;
   @override
   Widget build(BuildContext context) {
-    final playersData = Provider.of<Players>(context);
     return ListView.builder(
       padding: const EdgeInsets.all(0),
       itemBuilder: (ctx, index) => InkWell(
-//        onTap: () => Navigator.of(context).pushNamed(
-//          //PlayerProfileScreen.routeName,
-//          arguments: playersData.getPlayerById(ranking[index]),
-//        ),
-        child: PlayerListItem(
-          name: players[index].name,
+        onTap: () => Navigator.of(context).pushNamed(
+          PlayerDetailScreen.routeName,
+          arguments: players[index],
         ),
+        child: PlayerListItem(players[index]),
       ),
       itemCount: players.length,
     );

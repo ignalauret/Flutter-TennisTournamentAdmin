@@ -55,35 +55,33 @@ class Tournament {
     );
   }
 
+  /* Getters */
+
   int get playerCount {
     int result = 0;
     players.forEach((key, playersList) => result += playersList.length);
     return result;
   }
 
+  /* Setters */
+
+  void setWinner(String category, String playerId) {
+    winners.putIfAbsent(category, () => playerId);
+  }
+
+  /* Predicates */
+
   bool isWinner(String id, String category) {
     if(!winners.containsKey(category)) return false;
     return winners[category] == id;
   }
 
-  int getPlayerTitles(String id) {
-    if(winners.isEmpty) return 0;
-    int result = 0;
-    winners.forEach((category, pid) {
-      if (pid == id) result++;
-    });
-    return result;
+  bool hasPlayed(String playerId) {
+    for(List<String> playerList in players.values) {
+      if(playerList.contains(playerId)) return true;
+    }
+    return false;
   }
 
-  int getPlayerParticipation(String id) {
-    int result = 0;
-    players.values.forEach((playersList) {
-      if (playersList.contains(id)) result++;
-    });
-    return result;
-  }
 
-  void setWinner(String category, String playerId) {
-    winners.putIfAbsent(category, () => playerId);
-  }
 }

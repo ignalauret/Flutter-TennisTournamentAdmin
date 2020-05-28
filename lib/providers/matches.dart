@@ -61,27 +61,19 @@ class Matches extends ChangeNotifier {
     });
   }
 
-  Map<String, Map<String, int>> getPlayerStats(String id) {
-    Map<String, Map<String, int>> result = {};
-    Categories.forEach((category) {
-      final matches = _matches.where((match) =>
-          (match.idPlayer1 == id || match.idPlayer2 == id) &&
-          match.category == category);
-      final wins = matches.fold(
-          0, (prev, match) => match.winnerId == id ? prev + 1 : prev);
-      final tournaments = 1; //TODO
-      result.addAll({
-        category: {
-          "played": matches.length,
-          "wins": wins,
-          "tournaments": tournaments
-        }
-      });
-    });
-    return result;
-  }
+  /* Getters */
 
   Match getMatchById(String id) {
     return _matches.firstWhere((match) => match.id == id);
+  }
+
+  /* Predicates */
+
+  bool playerHasMatches(String playerId) {
+    for (Match match in _matches) {
+      if (match.idPlayer1 == playerId || match.idPlayer2 == playerId)
+        return true;
+    }
+    return false;
   }
 }

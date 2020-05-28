@@ -8,10 +8,11 @@ class Players extends ChangeNotifier {
   List<Player> _players = [];
 
   Future<List<Player>> fetchPlayers() async {
-    if(_players.isNotEmpty) return [..._players];
-    final response = await http.get("https://tennis-tournament-4990d.firebaseio.com/players.json");
+    if (_players.isNotEmpty) return [..._players];
+    final response = await http
+        .get("https://tennis-tournament-4990d.firebaseio.com/players.json");
     final responseData = json.decode(response.body) as List<dynamic>;
-    for(int i = 0; i < responseData.length; i++) {
+    for (int i = 0; i < responseData.length; i++) {
       final Map<String, dynamic> playerData = responseData[i];
       _players.add(Player.fromJson(i.toString(), playerData));
     }
@@ -21,6 +22,15 @@ class Players extends ChangeNotifier {
 
   void addPlayer(Player player) {
     _players.add(player);
+    notifyListeners();
+  }
+
+  Future<void> deletePlayer(String playerId) async {
+    // Remove from local memory.
+    _players.removeWhere((player) => player.id == playerId);
+    // Remove from db.
+    http.delete(
+        "https://tennis-tournament-4990d.firebaseio.com/players/$playerId.json");
     notifyListeners();
   }
 
