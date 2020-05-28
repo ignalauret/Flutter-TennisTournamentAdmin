@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tennistournamentadmin/providers/matches.dart';
+import 'package:tennistournamentadmin/providers/tournaments.dart';
 import 'package:tennistournamentadmin/screens/tournament_draw_screen.dart';
+import 'package:tennistournamentadmin/widgets/dialogs/confirm_dialog.dart';
 import '../models/tournament.dart';
 
 class TournamentDetailScreen extends StatelessWidget {
   static const routeName = "/tournament-detail";
+
+  void deleteThisTournament(BuildContext context, Tournament tournament) {
+    Provider.of<Tournaments>(context, listen: false)
+        .deleteTournament(tournament.id);
+    Provider.of<Matches>(context, listen: false).deleteMatchesOfTournament(tournament.id);
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     final Tournament tournament = ModalRoute.of(context).settings.arguments;
@@ -11,6 +23,21 @@ class TournamentDetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(tournament.name),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.delete),
+            iconSize: 25,
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (_) => ConfirmDialog(
+                    "Esta seguro que quiere eliminar este torneo?"),
+              ).then((confirm) {
+                if (confirm) deleteThisTournament(context, tournament);
+              });
+            },
+          ),
+        ],
       ),
       body: Column(
         children: <Widget>[

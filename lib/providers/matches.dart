@@ -17,7 +17,7 @@ class Matches extends ChangeNotifier {
   }
 
   Future<List<Match>> fetchMatches() async {
-    if (_matches.isNotEmpty) return [..._matches];
+    if (_matches != null) return [..._matches];
     final response = await http
         .get("https://tennis-tournament-4990d.firebaseio.com/matches.json");
     final responseData = json.decode(response.body) as List<dynamic>;
@@ -43,6 +43,22 @@ class Matches extends ChangeNotifier {
     _matches.add(match);
     notifyListeners();
     await _tournamentsData.addMatch(match, matchIndex);
+  }
+
+  Future<void> deleteMatch(String matchId) async {
+    // Delete match from local memory.
+    _matches.removeWhere((match) => match.id == matchId);
+    // Delete match from db.
+    http.delete(
+        "https://tennis-tournament-4990d.firebaseio.com/matches/$matchId.json");
+  }
+
+  Future<void> deleteMatchesOfTournament(String tournamentId) async {
+    _matches.forEach((match) {
+      if (match.tournament == tournamentId) {
+        deleteMatch(match.id);
+      }
+    });
   }
 
   Map<String, Map<String, int>> getPlayerStats(String id) {

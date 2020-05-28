@@ -7,7 +7,7 @@ class TournamentsList extends StatelessWidget {
   final List<Tournament> tournaments;
   @override
   Widget build(BuildContext context) {
-    if (tournaments == null)
+    if (tournaments.isEmpty)
       return Center(
         child: Text("No hay torneos"),
       );
