@@ -44,7 +44,7 @@ class DrawMatchCard extends StatelessWidget {
       idPlayer2: id2,
       result1: parseResult(result[0]),
       result2: parseResult(result[1]),
-      date: parseDate(result[2]),
+      date: parseDateWithHour(result[2]),
       tournament: tid,
       category: category,
       round: round,

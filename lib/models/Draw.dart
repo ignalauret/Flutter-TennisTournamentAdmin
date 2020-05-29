@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:tennistournamentadmin/utils/constants.dart';
 import 'package:tennistournamentadmin/utils/math_methods.dart';
 
-List<String> rounds = [
+const List<String> Rounds = [
   "Final",
   "Semifinal",
   "Cuartos de Final",
@@ -78,18 +78,18 @@ class Draw {
     // For each round, add to the map the matches.
     for (int i = 0; i < nRounds; i++) {
       temp.addAll({
-        rounds[i]: [],
+        Rounds[i]: [],
       });
       if (i == 0) {
-        temp[rounds[i]].add(_draw[0]);
+        temp[Rounds[i]].add(_draw[0]);
       } else {
         for (int j = pow(2, i) - 1; j < pow(2, i + 1) - 1; j++) {
-          temp[rounds[i]].add(_draw[j]);
+          temp[Rounds[i]].add(_draw[j]);
         }
       }
     }
     final Map<String, List<String>> result = {};
-    rounds.sublist(0, nRounds).reversed.forEach(
+    Rounds.sublist(0, nRounds).reversed.forEach(
           (round) => result.addAll({round: temp[round]}),
         );
     return result;

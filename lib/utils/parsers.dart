@@ -21,6 +21,7 @@ String encodeResult(List<String> result) {
   return result.join(".");
 }
 
+// Example: 25/5/2020
 DateTime parseDate(String date) {
   final list = date.split("/");
   return DateTime(
@@ -30,11 +31,32 @@ DateTime parseDate(String date) {
   );
 }
 
+// Example: 25/5/2020/18/30
+DateTime parseDateWithHour(String date) {
+  final list = date.split("/");
+  return DateTime(
+    int.parse(list[2]),
+    int.parse(list[1]),
+    int.parse(list[0]),
+    int.parse(list[3]),
+    int.parse(list[4]),
+  );
+}
+
 String encodeDate(DateTime date) {
   final year = date.year.toString();
   final month = date.month.toString();
   final day = date.day.toString();
   return "$day/$month/$year";
+}
+
+String encodeDateWithHour(DateTime date) {
+  final year = date.year.toString();
+  final month = date.month.toString();
+  final day = date.day.toString();
+  final hour = date.hour.toString();
+  final minute = date.minute.toString();
+  return "$day/$month/$year/$hour/$minute";
 }
 
 Map<String, Draw> parseDraws(Map<String, List> draws) {

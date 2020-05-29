@@ -16,6 +16,8 @@ class Tournament {
     @required this.end,
     this.winners = const {},
     this.draws,
+    this.logoUrl =
+        "https://vignette.wikia.nocookie.net/logopedia/images/a/a9/Austopen2017.png/revision/latest/scale-to-width-down/340?cb=20171231140337",
   });
 
   Tournament.fromJson(String id, Map<String, dynamic> tournamentData)
@@ -29,7 +31,8 @@ class Tournament {
             : Map<String, String>.from(tournamentData["winners"]),
         players =
             parsePlayers(Map<String, List>.from(tournamentData["players"])),
-        draws = parseDraws(Map<String, List>.from(tournamentData["draws"]));
+        draws = parseDraws(Map<String, List>.from(tournamentData["draws"])),
+        logoUrl = tournamentData["logoUrl"];
 
   String id;
   final String name;
@@ -39,6 +42,7 @@ class Tournament {
   final DateTime end;
   final Map<String, String> winners;
   final Map<String, Draw> draws;
+  final String logoUrl;
 
   String toJson() {
     return json.encode(
@@ -51,6 +55,7 @@ class Tournament {
         "winners": this.winners,
         "players": this.players,
         "draws": encodeDraws(this.draws),
+        "logoUrl": this.logoUrl,
       },
     );
   }
@@ -66,22 +71,20 @@ class Tournament {
   /* Setters */
 
   void setWinner(String category, String playerId) {
-    winners.putIfAbsent(category, () => playerId);
+    winners[category] =  playerId;
   }
 
   /* Predicates */
 
   bool isWinner(String id, String category) {
-    if(!winners.containsKey(category)) return false;
+    if (!winners.containsKey(category)) return false;
     return winners[category] == id;
   }
 
   bool hasPlayed(String playerId) {
-    for(List<String> playerList in players.values) {
-      if(playerList.contains(playerId)) return true;
+    for (List<String> playerList in players.values) {
+      if (playerList.contains(playerId)) return true;
     }
     return false;
   }
-
-
 }

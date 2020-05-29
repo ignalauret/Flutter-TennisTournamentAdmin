@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import '../models/tournament.dart';
 import '../providers/tournaments.dart';
 import '../models/match.dart';
 import 'package:http/http.dart' as http;
@@ -17,7 +16,7 @@ class Matches extends ChangeNotifier {
   }
 
   Future<List<Match>> fetchMatches() async {
-    if (_matches != null) return [..._matches];
+    if (_matches != null && _matches.isNotEmpty) return [..._matches];
     final response = await http
         .get("https://tennis-tournament-4990d.firebaseio.com/matches.json");
     final responseData = json.decode(response.body) as List<dynamic>;

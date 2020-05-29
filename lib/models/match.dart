@@ -22,7 +22,7 @@ class Match {
         idPlayer2 = matchData["player2"],
         result1 = parseResult(matchData["result1"]),
         result2 = parseResult(matchData["result2"]),
-        date = parseDate(matchData["date"]),
+        date = parseDateWithHour(matchData["date"]),
         tournament = matchData["tournament"],
         round = matchData["round"],
         category = matchData["category"];
@@ -44,7 +44,7 @@ class Match {
       "player2": this.idPlayer2,
       "result1": encodeResult(this.result1),
       "result2": encodeResult(this.result2),
-      "date": encodeDate(this.date),
+      "date": encodeDateWithHour(this.date),
       "tournament": this.tournament,
       "category": this.category,
       "round": this.round,

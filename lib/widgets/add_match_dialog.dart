@@ -20,8 +20,8 @@ class AddMatchDialog extends StatefulWidget {
 }
 
 class _AddMatchDialogState extends State<AddMatchDialog> {
-  List<String> result1 = ["1", "1", ""];
-  List<String> result2 = ["1", "1", ""];
+  List<String> result1 = ["", "", ""];
+  List<String> result2 = ["", "", ""];
 
   Widget _buildPlayerName(String name, String ranking, bool winner) {
     return Container(
@@ -64,7 +64,7 @@ class _AddMatchDialogState extends State<AddMatchDialog> {
     final List<String> result = [
       result1[2].isEmpty ? result1[0] + "." + result1[1] : result1.join("."),
       result2[2].isEmpty ? result2[0] + "." + result2[1] : result2.join("."),
-      "25/05/2020"
+      "25/05/2020/18/30"
     ];
     Navigator.of(context).pop(result);
   }

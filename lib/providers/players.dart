@@ -34,6 +34,19 @@ class Players extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> addPointsToPlayer(String id, int points, String category) async {
+    // Add points in local memory.
+    final newPoints = _addPlayerPoints(id, category, points);
+    // Add points in db.
+    http.put(
+      "https://tennis-tournament-4990d.firebaseio.com/players/$id/points/$category.json",
+      body: json.encode(newPoints),
+    );
+    notifyListeners();
+  }
+
+  /* Getters */
+
   List<Player> get players {
     return [..._players];
   }
@@ -52,5 +65,11 @@ class Players extends ChangeNotifier {
 
   Player getPlayerById(String id) {
     return _players.firstWhere((player) => player.id == id);
+  }
+
+  /* Setters */
+
+  int _addPlayerPoints(String id, String category, int points) {
+    return getPlayerById(id).points.update(category, (prev) => prev + points);
   }
 }

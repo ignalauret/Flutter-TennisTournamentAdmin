@@ -24,8 +24,10 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<Players>(
           create: (_) => Players(),
         ),
-        ChangeNotifierProvider<Tournaments>(
-          create: (_) => Tournaments(),
+        ChangeNotifierProxyProvider<Players, Tournaments>(
+          create: (_) => Tournaments(null, []),
+          update: (_, playersData, prevTournaments) =>
+              Tournaments(playersData, prevTournaments.tournaments),
         ),
         ChangeNotifierProxyProvider<Tournaments, Matches>(
           create: (_) => Matches(null, []),

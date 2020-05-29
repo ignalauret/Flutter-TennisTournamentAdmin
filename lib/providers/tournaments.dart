@@ -1,16 +1,24 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/foundation.dart';
+import 'package:tennistournamentadmin/models/Draw.dart';
+import 'package:tennistournamentadmin/providers/players.dart';
 import '../utils/math_methods.dart';
 import '../models/tournament.dart';
 import '../models/match.dart';
 import 'package:http/http.dart' as http;
 
+const List<int> Points = [100, 80, 60, 40, 20, 10, 5];
+
 class Tournaments extends ChangeNotifier {
-  final List<Tournament> _tournaments = [];
+  Tournaments(this._playerData, this._tournaments);
+  final Players _playerData;
+  final List<Tournament> _tournaments;
 
   Future<List<Tournament>> fetchTournaments() async {
-    if (_tournaments.isNotEmpty) return [..._tournaments];
+    if (_tournaments != null && _tournaments.isNotEmpty)
+      return [..._tournaments];
     final response = await http
         .get("https://tennis-tournament-4990d.firebaseio.com/tournaments.json");
     final responseData = json.decode(response.body) as List<dynamic>;
@@ -72,21 +80,47 @@ class Tournaments extends ChangeNotifier {
             arr.join(","),
           );
     } else {
+      final winner = idOfWinner(
+          match.idPlayer1, match.idPlayer2, match.result1, match.result2);
       http.put(
           "https://tennis-tournament-4990d.firebaseio.com/tournaments/${match.tournament}/winners/${match.category}.json",
           body: json.encode(
               "${idOfWinner(match.idPlayer1, match.idPlayer2, match.result1, match.result2)}"));
       _tournaments[int.parse(match.tournament)].setWinner(
         match.category,
-        idOfWinner(
-            match.idPlayer1, match.idPlayer2, match.result1, match.result2),
+        winner,
       );
-      //TODO: Add points to players.
+      // The tournament ended, so we add the points to de players
+      addPointsToPlayers(match.tournament, match.category, winner);
     }
     notifyListeners();
   }
 
+  Future<void> addPointsToPlayers(String id, String category, String winner) async {
+    final Map<String, int> points = {winner: Points[0]};
+    final draw = getTournamentDraw(id, category);
+    // Get corresponding points for each player.
+    for (int i = 0; i < draw.draw.length; i++) {
+      final match = draw.getMatch(i).split(",");
+      final String id1 = match[0];
+      final String id2 = match[1];
+      if (!points.containsKey(id1) && id1 != "-1") {
+        points[id1] = Points[log2(i + 1).floor() + 1];
+      } else if (!points.containsKey(id2) && id2 != "-1") {
+        points[id2] = Points[log2(i + 1).floor() + 1];
+      }
+    }
+    // Add the points.
+    points.forEach((player, pointsToAdd) {
+      _playerData.addPointsToPlayer(player, pointsToAdd, category);
+    });
+  }
+
   /* Getters */
+
+  List<Tournament> get tournaments {
+    return [..._tournaments];
+  }
 
   Tournament getTournamentById(String id) {
     return _tournaments.firstWhere((tournament) => tournament.id == id);
@@ -96,19 +130,9 @@ class Tournaments extends ChangeNotifier {
     return getTournamentById(id).name;
   }
 
-//  int getPlayerTitles(String id) {
-//    int result = 0;
-//    _tournaments
-//        .forEach((tournament) => result += tournament.getPlayerTitles(id));
-//    return result;
-//  }
-
-//  int getPlayersPlayedTournaments(String id) {
-//    int result = 0;
-//    _tournaments.forEach(
-//        (tournament) => result += tournament.getPlayerParticipation(id));
-//    return result;
-//  }
+  Draw getTournamentDraw(String id, String category) {
+    return getTournamentById(id).draws[category];
+  }
 
   /* Predicates */
 
