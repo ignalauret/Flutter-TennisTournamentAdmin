@@ -4,6 +4,7 @@ import 'package:tennistournamentadmin/providers/matches.dart';
 import 'package:tennistournamentadmin/providers/players.dart';
 import 'package:tennistournamentadmin/providers/tournaments.dart';
 import 'package:tennistournamentadmin/screens/tournament_draw_screen.dart';
+import 'package:tennistournamentadmin/utils/constants.dart';
 import 'package:tennistournamentadmin/widgets/dialogs/confirm_dialog.dart';
 import '../models/tournament.dart';
 
@@ -13,7 +14,8 @@ class TournamentDetailScreen extends StatelessWidget {
   void deleteThisTournament(BuildContext context, Tournament tournament) {
     Provider.of<Tournaments>(context, listen: false)
         .deleteTournament(tournament.id);
-    Provider.of<Matches>(context, listen: false).deleteMatchesOfTournament(tournament.id);
+    Provider.of<Matches>(context, listen: false)
+        .deleteMatchesOfTournament(tournament.id);
     Navigator.of(context).pop();
   }
 
@@ -41,27 +43,34 @@ class TournamentDetailScreen extends StatelessWidget {
       ),
       body: Column(
         children: <Widget>[
-          FlatButton(
-            child: Text("Categoria A"),
-            onPressed: () {
-              Navigator.of(context).pushNamed(TournamentDraw.routeName,
-                  arguments: {"category": "A", "tournament": tournament});
-            },
+          Text(
+            "Cuadros",
+            style: Constants.kTitleStyle,
           ),
-          FlatButton(
-            child: Text("Categoria B"),
-            onPressed: () {
-              Navigator.of(context).pushNamed(TournamentDraw.routeName,
-                  arguments: {"category": "B", "tournament": tournament});
-            },
-          ),
-          FlatButton(
-            child: Text("Categoria C"),
-            onPressed: () {
-              Navigator.pushNamed(context, TournamentDraw.routeName,
-                  arguments: {"category": "C", "tournament": tournament});
-            },
-          ),
+          if (tournament.players["A"] != null)
+            FlatButton(
+              child: Text("Categoria A"),
+              onPressed: () {
+                Navigator.of(context).pushNamed(TournamentDraw.routeName,
+                    arguments: {"category": "A", "tournament": tournament});
+              },
+            ),
+          if (tournament.players["B"] != null)
+            FlatButton(
+              child: Text("Categoria B"),
+              onPressed: () {
+                Navigator.of(context).pushNamed(TournamentDraw.routeName,
+                    arguments: {"category": "B", "tournament": tournament});
+              },
+            ),
+          if (tournament.players["C"] != null)
+            FlatButton(
+              child: Text("Categoria C"),
+              onPressed: () {
+                Navigator.pushNamed(context, TournamentDraw.routeName,
+                    arguments: {"category": "C", "tournament": tournament});
+              },
+            ),
         ],
       ),
     );
