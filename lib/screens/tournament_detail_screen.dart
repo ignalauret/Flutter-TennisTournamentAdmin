@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tennistournamentadmin/providers/matches.dart';
+import 'package:tennistournamentadmin/providers/players.dart';
 import 'package:tennistournamentadmin/providers/tournaments.dart';
 import 'package:tennistournamentadmin/screens/tournament_draw_screen.dart';
 import 'package:tennistournamentadmin/widgets/dialogs/confirm_dialog.dart';
@@ -19,7 +20,6 @@ class TournamentDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Tournament tournament = ModalRoute.of(context).settings.arguments;
-
     return Scaffold(
       appBar: AppBar(
         title: Text(tournament.name),

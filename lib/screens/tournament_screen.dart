@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tennistournamentadmin/providers/tournaments.dart';
 import 'package:tennistournamentadmin/screens/create_tournament/add_tournament_screen.dart';
-import 'package:tennistournamentadmin/widgets/tournaments_list.dart';
+import 'package:tennistournamentadmin/widgets/tournaments/tournaments_list.dart';
 
-class TournamentScren extends StatelessWidget {
+class TournamentScreen extends StatelessWidget {
   static const routeName = "/tournaments";
   @override
   Widget build(BuildContext context) {

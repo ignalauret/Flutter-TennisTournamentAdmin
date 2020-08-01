@@ -84,7 +84,7 @@ class _SelectTournamentPlayersState extends State<SelectTournamentPlayers> {
                 } else {
                   tournamentData.createTournament();
                   Navigator.of(context).popUntil(
-                    ModalRoute.withName(TournamentScren.routeName),
+                    ModalRoute.withName(TournamentScreen.routeName),
                   );
                 }
               },

@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
         ),
         home: HomeScreen(),
         routes: {
-          TournamentScren.routeName: (_) => TournamentScren(),
+          TournamentScreen.routeName: (_) => TournamentScreen(),
           PlayerScreen.routeName: (_) => PlayerScreen(),
           AddPlayerScreen.routeName: (_) => AddPlayerScreen(),
           TournamentDraw.routeName: (_) => TournamentDraw(),

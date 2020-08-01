@@ -43,13 +43,13 @@ class _TournamentDrawState extends State<TournamentDraw> {
   }
 
   Widget _buildByeMatch(
-      String idPlayer1,
-      String idPlayer2,
-      double bottomMargin,
-      Ranking rankingData,
-      Players playerData,
-      String category,
-      ) {
+    String idPlayer1,
+    String idPlayer2,
+    double bottomMargin,
+    Ranking rankingData,
+    Players playerData,
+    String category,
+  ) {
     String name1;
     String name2;
     String ranking1;
@@ -214,34 +214,42 @@ class _TournamentDrawState extends State<TournamentDraw> {
       appBar: AppBar(
         title: Text(tournament.name + " Categoria " + selectedCategory),
       ),
-      body: Container(
-        child: DiagonalScrollView(
-          maxHeight: tournament.draws[selectedCategory].drawHeight + 20,
-          maxWidth: 1000,
-          child: Container(
-            height: tournament.draws[selectedCategory].drawHeight + 20,
-            width: 1000,
-            margin: const EdgeInsets.all(15),
-            child: Row(
-              children: tournament.draws[selectedCategory]
-                  .getSortedDraw()
-                  .entries
-                  .map(
-                    (entry) => _buildRoundColumn(
-                      matches: entry.value,
-                      title: entry.key,
-                      matchesData: matchesData,
-                      playerData: playerData,
-                      rankingData: rankingData,
-                      tournament: tournament,
-                      selectedCategory: selectedCategory,
-                    ),
-                  )
-                  .toList(),
-            ),
-          ),
-        ),
-      ),
+      body: FutureBuilder(
+          future: matchesData.fetchMatches(),
+          builder: (context, snapshot) {
+            if (snapshot.data == null)
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            return Container(
+              child: DiagonalScrollView(
+                maxHeight: tournament.draws[selectedCategory].drawHeight + 20,
+                maxWidth: 1000,
+                child: Container(
+                  height: tournament.draws[selectedCategory].drawHeight + 20,
+                  width: 1000,
+                  margin: const EdgeInsets.all(15),
+                  child: Row(
+                    children: tournament.draws[selectedCategory]
+                        .getSortedDraw()
+                        .entries
+                        .map(
+                          (entry) => _buildRoundColumn(
+                            matches: entry.value,
+                            title: entry.key,
+                            matchesData: matchesData,
+                            playerData: playerData,
+                            rankingData: rankingData,
+                            tournament: tournament,
+                            selectedCategory: selectedCategory,
+                          ),
+                        )
+                        .toList(),
+                  ),
+                ),
+              ),
+            );
+          }),
     );
   }
 }

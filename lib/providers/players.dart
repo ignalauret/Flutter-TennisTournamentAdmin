@@ -9,13 +9,15 @@ class Players extends ChangeNotifier {
 
   Future<List<Player>> fetchPlayers() async {
     if (_players.isNotEmpty) return [..._players];
+    final List<Player> temp = [];
     final response = await http
         .get("https://tennis-tournament-4990d.firebaseio.com/players.json");
     final responseData = json.decode(response.body) as List<dynamic>;
     for (int i = 0; i < responseData.length; i++) {
       final Map<String, dynamic> playerData = responseData[i];
-      _players.add(Player.fromJson(i.toString(), playerData));
+      temp.add(Player.fromJson(i.toString(), playerData));
     }
+    _players = temp.toList();
     notifyListeners();
     return [..._players];
   }

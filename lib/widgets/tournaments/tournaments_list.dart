@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tennistournamentadmin/models/tournament.dart';
-import 'package:tennistournamentadmin/widgets/tournament_list_item.dart';
+import 'package:tennistournamentadmin/widgets/tournaments/tournament_list_item.dart';
 
 class TournamentsList extends StatelessWidget {
   TournamentsList(this.tournaments);
@@ -13,7 +13,15 @@ class TournamentsList extends StatelessWidget {
       );
     return ListView.builder(
       itemBuilder: (context, index) {
-        return TournamentListItem(tournaments[index]);
+        return Card(
+          elevation: 8,
+          margin: const EdgeInsets.all(20),
+          child: TournamentListItem(
+            tournaments[index],
+            color: Colors.white,
+            textColor: Colors.black,
+          ),
+        );
       },
       itemCount: tournaments.length,
     );

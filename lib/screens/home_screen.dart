@@ -6,12 +6,21 @@ import 'package:tennistournamentadmin/providers/ranking.dart';
 import 'package:tennistournamentadmin/screens/player_screen.dart';
 import 'package:tennistournamentadmin/screens/tournament_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+
+  @override
+  void initState() {
+    Provider.of<Players>(context, listen: false).fetchPlayers();
+    Provider.of<Ranking>(context, listen: false).fetchRanking("A");
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
-    Provider.of<Players>(context).fetchPlayers();
-    Provider.of<Matches>(context).fetchMatches();
-    Provider.of<Ranking>(context).fetchRanking("A");
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -25,7 +34,7 @@ class HomeScreen extends StatelessWidget {
           children: <Widget>[
             InkWell(
               onTap: () {
-                Navigator.of(context).pushNamed(TournamentScren.routeName);
+                Navigator.of(context).pushNamed(TournamentScreen.routeName);
               },
               child: Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15),
