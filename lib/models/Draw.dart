@@ -73,6 +73,13 @@ class Draw {
     return pow(2, nRounds - 1) * Constants.kDrawMatchHeight;
   }
 
+  String get actualRound {
+    // Find last unplayed match
+    final int lastIndex = _draw.lastIndexWhere((match) => match[match.length-1] == ",");
+    if(lastIndex == -1) return "Terminado";
+    return Rounds[log2(lastIndex + 1).floor()];
+  }
+
   Map<String, List<String>> getSortedDraw() {
     final Map<String, List<String>> temp = {};
     // For each round, add to the map the matches.

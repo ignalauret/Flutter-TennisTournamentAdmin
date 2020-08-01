@@ -15,9 +15,9 @@ class PlayerListItem extends StatelessWidget {
           vertical: 5,
         ),
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(Constants.kCardBorderRadius)),
+            borderRadius: BorderRadius.circular(10)),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(10.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[

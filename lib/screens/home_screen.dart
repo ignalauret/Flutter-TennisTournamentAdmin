@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: InkWell(
         onTap: () {
-          Navigator.of(context).pushNamed(route);
+          if (route != null) Navigator.of(context).pushNamed(route);
         },
         child: Card(
           elevation: 6,
@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                     onPressed: () {
-                      Navigator.of(context).pushNamed(route);
+                      if (route != null) Navigator.of(context).pushNamed(route);
                     },
                   ),
                 ),
@@ -102,11 +102,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 "Mira todos los jugadores, agrega nuevos, edita los existentes o elimina los jugadores que no participen más del circuito.",
                 PlayerScreen.routeName,
               ),
-            ),Expanded(
+            ),
+            Expanded(
               child: _buildRouteCard(
-                "Cuenta",
-                "Administra tu cuenta, cambia el nombre de tu club o la foto de este.",
-                TournamentScreen.routeName,
+                "Liga",
+                "Proximamente",
+                null,
               ),
             ),
           ],
