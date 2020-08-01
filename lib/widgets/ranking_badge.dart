@@ -13,7 +13,7 @@ class RankingBadge extends StatelessWidget {
       margin: const EdgeInsets.only(right: 5),
       padding: const EdgeInsets.all(2),
       decoration: BoxDecoration(
-        color: ACCENT_COLOR,
+        color: Constants.kAccentColor,
         borderRadius: BorderRadius.circular(5),
       ),
       alignment: Alignment.center,

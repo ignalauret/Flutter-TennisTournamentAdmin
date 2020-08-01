@@ -70,7 +70,7 @@ class Draw {
   }
 
   double get drawHeight {
-    return pow(2, nRounds - 1) * DRAW_MATCH_HEIGHT;
+    return pow(2, nRounds - 1) * Constants.kDrawMatchHeight;
   }
 
   Map<String, List<String>> getSortedDraw() {

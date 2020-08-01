@@ -55,7 +55,7 @@ class DrawMatchCard extends StatelessWidget {
   Widget _buildPlayerName(String name, String ranking, bool winner) {
     return Container(
       width: 130,
-      height: DRAW_MATCH_HEIGHT * 0.32,
+      height: Constants.kDrawMatchHeight * 0.32,
       child: Row(
         children: <Widget>[
           RankingBadge(
@@ -64,7 +64,7 @@ class DrawMatchCard extends StatelessWidget {
           ),
           Container(
             width: 90,
-            height: DRAW_MATCH_HEIGHT * 0.32,
+            height: Constants.kDrawMatchHeight * 0.32,
             child: FittedBox(
               fit: BoxFit.scaleDown,
               alignment: Alignment.centerLeft,
@@ -82,7 +82,7 @@ class DrawMatchCard extends StatelessWidget {
             Icon(
               Icons.check,
               size: 12,
-              color: ACCENT_COLOR,
+              color: Constants.kAccentColor,
             ),
         ],
       ),
@@ -91,7 +91,7 @@ class DrawMatchCard extends StatelessWidget {
 
   Widget _buildResult(double resultWidth, List<String> result) {
     return Container(
-      height: DRAW_MATCH_HEIGHT * 0.32,
+      height: Constants.kDrawMatchHeight * 0.32,
       width: resultWidth,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -101,7 +101,7 @@ class DrawMatchCard extends StatelessWidget {
             child: Text(
               score[0],
               style: TextStyle(
-                color: score.length == 2 ? ACCENT_COLOR : Colors.black,
+                color: score.length == 2 ? Constants.kAccentColor : Colors.black,
                 fontSize: 12,
               ),
             ),
@@ -135,7 +135,7 @@ class DrawMatchCard extends StatelessWidget {
         vertical: 5,
       ),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(BORDER_RADIUS),
+        borderRadius: BorderRadius.circular(Constants.kCardBorderRadius),
       ),
       color: Colors.white,
       child: Padding(
@@ -146,15 +146,15 @@ class DrawMatchCard extends StatelessWidget {
                   Column(
                     children: <Widget>[
                       Container(
-                          height: DRAW_MATCH_HEIGHT * 0.32,
+                          height: Constants.kDrawMatchHeight * 0.32,
                           child: _buildPlayerName(name1, ranking1, false)),
                       Container(
-                          height: DRAW_MATCH_HEIGHT * 0.32,
+                          height: Constants.kDrawMatchHeight * 0.32,
                           child: _buildPlayerName(name2, ranking2, false)),
                     ],
                   ),
                   Container(
-                    height: DRAW_MATCH_HEIGHT * 0.64,
+                    height: Constants.kDrawMatchHeight * 0.64,
                     width: 80,
                     alignment: Alignment.centerRight,
                     child: name1.isNotEmpty && name2.isNotEmpty

@@ -20,12 +20,13 @@ class _AddPlayerScreenState extends State<AddPlayerScreen> {
   int backhand = 1;
   String handed = "r";
   String birth = "";
+  String image = "";
 
   Future<void> addPlayer() async {
     final players = await http
         .get("https://tennis-tournament-4990d.firebaseio.com/players.json");
     final playersList = json.decode(players.body) as List;
-    final playersCount = playersList.length;
+    final playersCount = playersList == null ? 0 : playersList.length;
     final player = Player(
       name: name,
       club: club,
@@ -34,8 +35,8 @@ class _AddPlayerScreenState extends State<AddPlayerScreen> {
       handed: handed == "r" ? Handed.Right : Handed.Left,
       birth: parseDate(birth),
       id: playersCount.toString(),
-      profileUrl: "assets/img/ignacio_lauret_profile.png",
-      imageUrl: "assets/img/ignacio_lauret_image.png",
+      profileUrl: "assets/img/${image}_profile.png",
+      imageUrl: "assets/img/${image}_image.png",
       bestRankings: {"A": 1000, "B": 1000, "C": 1000},
       bestRankingsDates: {"A": " ", "B": " ", "C": " "},
       points: {"A": 0, "B": 0, "C": 0},
@@ -75,6 +76,10 @@ class _AddPlayerScreenState extends State<AddPlayerScreen> {
               TextField(
                 decoration: InputDecoration(hintText: "Nacimiento"),
                 onChanged: (val) => birth = val,
+              ),
+              TextField(
+                decoration: InputDecoration(hintText: "Imagen"),
+                onChanged: (val) => image = val,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

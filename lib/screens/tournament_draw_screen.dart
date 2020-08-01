@@ -27,7 +27,7 @@ class _TournamentDrawState extends State<TournamentDraw> {
     final name1 = playerData.getPlayerName(match.idPlayer1);
     final name2 = playerData.getPlayerName(match.idPlayer2);
     return Container(
-      height: DRAW_MATCH_HEIGHT,
+      height: Constants.kDrawMatchHeight,
       margin: EdgeInsets.only(bottom: bottomMargin),
       alignment: Alignment.center,
       child: DrawMatchCard(
@@ -69,7 +69,7 @@ class _TournamentDrawState extends State<TournamentDraw> {
       isFirstWinner = true;
     }
     return Container(
-      height: DRAW_MATCH_HEIGHT,
+      height: Constants.kDrawMatchHeight,
       margin: EdgeInsets.only(bottom: bottomMargin),
       alignment: Alignment.center,
       child: DrawMatchCard(
@@ -97,7 +97,7 @@ class _TournamentDrawState extends State<TournamentDraw> {
     final name1 = idPlayer1.isEmpty ? "" : playerData.getPlayerName(idPlayer1);
     final name2 = idPlayer2.isEmpty ? "" : playerData.getPlayerName(idPlayer2);
     return Container(
-      height: DRAW_MATCH_HEIGHT,
+      height: Constants.kDrawMatchHeight,
       margin: EdgeInsets.only(bottom: bottomMargin),
       alignment: Alignment.center,
       child: DrawMatchCard(
@@ -182,7 +182,7 @@ class _TournamentDrawState extends State<TournamentDraw> {
       children: <Widget>[
         Text(
           title,
-          style: TITLE_STYLE,
+          style: Constants.kSubtitleStyle,
         ),
         SizedBox(
           height:
@@ -210,7 +210,7 @@ class _TournamentDrawState extends State<TournamentDraw> {
     final selectedCategory = args["category"];
     final Tournament tournament = args["tournament"];
     return Scaffold(
-      backgroundColor: MAIN_COLOR,
+      backgroundColor: Constants.kMainColor,
       appBar: AppBar(
         title: Text(tournament.name + " Categoria " + selectedCategory),
       ),

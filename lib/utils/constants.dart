@@ -1,36 +1,46 @@
 import 'package:flutter/material.dart';
 
-const TextStyle PLAYER_NAME_STYLE = TextStyle(
-  fontSize: 15,
-  fontWeight: FontWeight.bold,
-);
+class Constants {
+  static const TextStyle kPlayerNameStyle = TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeight.bold,
+  );
 
-TextStyle TITLE_STYLE = TextStyle(
-  color: Colors.white,
-  fontSize: 16,
-  fontWeight: FontWeight.bold,
-);
+  static TextStyle kTitleStyle = TextStyle(
+    color: kMainColor,
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+  );
 
-TextStyle SMALL_TITLE_STYLE = TextStyle(
-  fontSize: 15,
-  fontWeight: FontWeight.w400,
-  color: Colors.grey[600],
-);
+  static TextStyle kSubtitleStyle = TextStyle(
+    color: Colors.white,
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+  );
 
-const TextStyle BUTTON_STYLE = TextStyle(
-  color: Colors.white,
-  fontSize: 14,
-);
+  static TextStyle SMALL_TITLE_STYLE = TextStyle(
+    fontSize: 15,
+    fontWeight: FontWeight.w400,
+    color: Colors.grey[600],
+  );
 
-const TextStyle MATCH_INFO_STYLE = TextStyle(
-  fontSize: 13,
-  color: Colors.grey,
-);
+  static const TextStyle BUTTON_STYLE = TextStyle(
+    color: Colors.white,
+    fontSize: 14,
+  );
 
-final Color BACKGROUND_COLOR = Color.fromRGBO(238, 238, 238, 1);
-const Color MAIN_COLOR = Color(0xFF002865);
-const Color ACCENT_COLOR = Color(0xFF00AFF0);
+  static const TextStyle MATCH_INFO_STYLE = TextStyle(
+    fontSize: 13,
+    color: Colors.grey,
+  );
 
-const BORDER_RADIUS = 15.0;
+  static final Color kbackgroundColor = Color.fromRGBO(238, 238, 238, 1);
+  static const Color kMainColor = Color(0xFF002865);
+  static const Color kAccentColor = Color(0xFF00AFF0);
+  static const Color kInputCardColor = Color.fromRGBO(229, 229, 229, 0.38);
 
-const double DRAW_MATCH_HEIGHT = 75;
+
+  static const kCardBorderRadius = 15.0;
+
+  static const double kDrawMatchHeight = 75;
+}

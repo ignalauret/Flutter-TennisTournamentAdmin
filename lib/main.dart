@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tennistournamentadmin/screens/add_player_screen.dart';
-import 'package:tennistournamentadmin/screens/add_tournament_screen.dart';
+import 'package:tennistournamentadmin/screens/create_tournament/add_tournament_screen.dart';
+import 'package:tennistournamentadmin/screens/create_tournament/select_categories_screen.dart';
+import 'package:tennistournamentadmin/screens/create_tournament/select_date_screen.dart';
+import 'package:tennistournamentadmin/screens/create_tournament/select_tournament_players.dart';
 import 'package:tennistournamentadmin/screens/player_detail_screen.dart';
 import 'package:tennistournamentadmin/screens/tournament_detail_screen.dart';
 import 'package:tennistournamentadmin/screens/tournament_draw_screen.dart';
@@ -62,6 +65,9 @@ class MyApp extends StatelessWidget {
           TournamentDetailScreen.routeName: (_) => TournamentDetailScreen(),
           AddTournamentsScreen.routeName: (_) => AddTournamentsScreen(),
           PlayerDetailScreen.routeName: (_) => PlayerDetailScreen(),
+          SelectDateScreen.routeName: (_) => SelectDateScreen(),
+          SelectCategoriesScreen.routeName: (_) => SelectCategoriesScreen(),
+          SelectTournamentPlayers.routeName: (_) => SelectTournamentPlayers(),
         },
       ),
     );

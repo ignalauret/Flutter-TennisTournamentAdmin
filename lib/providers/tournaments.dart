@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:tennistournamentadmin/models/Draw.dart';
 import 'package:tennistournamentadmin/providers/players.dart';
+import 'package:tennistournamentadmin/utils/parsers.dart';
 import '../utils/math_methods.dart';
 import '../models/tournament.dart';
 import '../models/match.dart';
@@ -15,6 +16,39 @@ class Tournaments extends ChangeNotifier {
   Tournaments(this._playerData, this._tournaments);
   final Players _playerData;
   final List<Tournament> _tournaments;
+
+  String _newTournamentName;
+  String _newTournamentClub = "Las Delicias";
+  String _newTournamentStart;
+  String _newTournamentEnd;
+  List<bool> _newTournamentCategories = [false, false, false];
+  Map<String, List<String>> _newTournamentPlayers = {};
+
+  List<bool> get newTournamentCategories => _newTournamentCategories;
+
+  set newTournamentName(String value) {
+    _newTournamentName = value;
+  }
+
+  set newTournamentClub(String value) {
+    _newTournamentClub = value;
+  }
+
+  set newTournamentStart(String value) {
+    _newTournamentStart = value;
+  }
+
+  set newTournamentEnd(String value) {
+    _newTournamentEnd = value;
+  }
+
+  void newTournamentCategory(int category, bool value) {
+    _newTournamentCategories[category] = value;
+  }
+
+  void newTournamentPlayers(String category, List<String> playerIds) {
+    _newTournamentPlayers[category] = playerIds;
+  }
 
   Future<List<Tournament>> fetchTournaments() async {
     if (_tournaments != null && _tournaments.isNotEmpty)
@@ -28,6 +62,24 @@ class Tournaments extends ChangeNotifier {
       _tournaments.add(Tournament.fromJson(i.toString(), tournamentData));
     }
     return [..._tournaments];
+  }
+
+  Future<void> createTournament() async {
+    final Map<String, Draw> draws = {};
+    for (int i = 0; i < Categories.length; i++) {
+      if (_newTournamentPlayers.containsKey(Categories[i]))
+        draws[Categories[i]] =
+            Draw.fromPlayerList(_newTournamentPlayers[Categories[i]]);
+    }
+    final tournament = Tournament(
+      name: _newTournamentName,
+      club: _newTournamentClub,
+      start: parseDate(_newTournamentStart),
+      end: parseDate(_newTournamentEnd),
+      players: _newTournamentPlayers,
+      draws: draws,
+    );
+    addTournament(tournament);
   }
 
   Future<void> addTournament(Tournament tournament) async {
@@ -96,7 +148,8 @@ class Tournaments extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addPointsToPlayers(String id, String category, String winner) async {
+  Future<void> addPointsToPlayers(
+      String id, String category, String winner) async {
     final Map<String, int> points = {winner: Points[0]};
     final draw = getTournamentDraw(id, category);
     // Get corresponding points for each player.

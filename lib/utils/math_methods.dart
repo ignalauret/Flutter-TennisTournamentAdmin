@@ -10,15 +10,15 @@ double getMargin(Draw draw, int roundLength, int index) {
   final int nRounds = draw.nRounds;
   final int thisRound = (log2(roundLength) + 1).floor();
   if (nRounds == thisRound) return 0;
-  return (math.pow(2, nRounds - thisRound) - 1) * DRAW_MATCH_HEIGHT;
+  return (math.pow(2, nRounds - thisRound) - 1) * Constants.kDrawMatchHeight;
 }
 
 double getTopOffset(Draw draw, int roundLength) {
   final int nRounds = draw.nRounds;
   final int thisRound = (log2(roundLength) + 1).floor();
   if (nRounds == thisRound) return 0;
-  return DRAW_MATCH_HEIGHT / 2 +
-      (math.pow(2, nRounds - thisRound - 1) - 1) * DRAW_MATCH_HEIGHT;
+  return Constants.kDrawMatchHeight / 2 +
+      (math.pow(2, nRounds - thisRound - 1) - 1) * Constants.kDrawMatchHeight;
 }
 
 // Returns the index of the match given the matches in the round and the index

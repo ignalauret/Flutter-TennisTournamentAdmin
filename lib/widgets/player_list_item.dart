@@ -15,7 +15,7 @@ class PlayerListItem extends StatelessWidget {
           vertical: 5,
         ),
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(BORDER_RADIUS)),
+            borderRadius: BorderRadius.circular(Constants.kCardBorderRadius)),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
@@ -28,7 +28,7 @@ class PlayerListItem extends StatelessWidget {
                   fit: BoxFit.scaleDown,
                   child: Text(
                     player.name,
-                    style: PLAYER_NAME_STYLE,
+                    style: Constants.kPlayerNameStyle,
                     textAlign: TextAlign.start,
                   ),
                 ),

@@ -26,7 +26,7 @@ class _AddMatchDialogState extends State<AddMatchDialog> {
   Widget _buildPlayerName(String name, String ranking, bool winner) {
     return Container(
       width: 130,
-      height: DRAW_MATCH_HEIGHT * 0.32,
+      height: Constants.kDrawMatchHeight * 0.32,
       child: Row(
         children: <Widget>[
           RankingBadge(
@@ -35,7 +35,7 @@ class _AddMatchDialogState extends State<AddMatchDialog> {
           ),
           Container(
             width: 90,
-            height: DRAW_MATCH_HEIGHT * 0.32,
+            height: Constants.kDrawMatchHeight * 0.32,
             child: FittedBox(
               fit: BoxFit.scaleDown,
               alignment: Alignment.centerLeft,
@@ -53,7 +53,7 @@ class _AddMatchDialogState extends State<AddMatchDialog> {
             Icon(
               Icons.check,
               size: 12,
-              color: ACCENT_COLOR,
+              color: Constants.kAccentColor,
             ),
         ],
       ),
@@ -75,11 +75,11 @@ class _AddMatchDialogState extends State<AddMatchDialog> {
     return AlertDialog(
       title: Text(
         "Agregar Partido",
-        style: TITLE_STYLE,
+        style: Constants.kSubtitleStyle,
       ),
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(BORDER_RADIUS)),
-      backgroundColor: MAIN_COLOR,
+          borderRadius: BorderRadius.circular(Constants.kCardBorderRadius)),
+      backgroundColor: Constants.kMainColor,
       content: Container(
         height: 300,
         width: size.width * 0.7,
@@ -94,7 +94,7 @@ class _AddMatchDialogState extends State<AddMatchDialog> {
                     margin: const EdgeInsets.only(right: 10),
                     child: Text(
                       "Resultado:",
-                      style: TITLE_STYLE,
+                      style: Constants.kSubtitleStyle,
                     ),
                   ),
                   Expanded(
@@ -105,7 +105,7 @@ class _AddMatchDialogState extends State<AddMatchDialog> {
                         border: InputBorder.none,
                       ),
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 15, color: ACCENT_COLOR),
+                      style: TextStyle(fontSize: 15, color: Constants.kAccentColor),
                       onChanged: (val) {
                         if (val.contains(".")) {
                           final arr = val.split(".");
@@ -127,7 +127,7 @@ class _AddMatchDialogState extends State<AddMatchDialog> {
                         border: InputBorder.none,
                       ),
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 15, color: ACCENT_COLOR),
+                      style: TextStyle(fontSize: 15, color: Constants.kAccentColor),
                       onChanged: (val) {
                         if (val.contains(".")) {
                           final arr = val.split(".");
@@ -149,7 +149,7 @@ class _AddMatchDialogState extends State<AddMatchDialog> {
                         border: InputBorder.none,
                       ),
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 15, color: ACCENT_COLOR),
+                      style: TextStyle(fontSize: 15, color: Constants.kAccentColor),
                       onChanged: (val) {
                         if (val.contains(".")) {
                           final arr = val.split(".");
@@ -172,7 +172,7 @@ class _AddMatchDialogState extends State<AddMatchDialog> {
                 vertical: 5,
               ),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(BORDER_RADIUS),
+                borderRadius: BorderRadius.circular(Constants.kCardBorderRadius),
               ),
               color: Colors.white,
               child: Padding(
@@ -183,23 +183,23 @@ class _AddMatchDialogState extends State<AddMatchDialog> {
                     Column(
                       children: <Widget>[
                         Container(
-                            height: DRAW_MATCH_HEIGHT * 0.32,
+                            height: Constants.kDrawMatchHeight * 0.32,
                             child: _buildPlayerName(
                                 widget.name1, widget.ranking1, false)),
                         Container(
-                            height: DRAW_MATCH_HEIGHT * 0.32,
+                            height: Constants.kDrawMatchHeight * 0.32,
                             child: _buildPlayerName(
                                 widget.name2, widget.ranking2, false)),
                       ],
                     ),
                     Container(
-                      height: DRAW_MATCH_HEIGHT * 0.64,
+                      height: Constants.kDrawMatchHeight * 0.64,
                       width: 80,
                       alignment: Alignment.centerRight,
                       child: Column(
                         children: <Widget>[
                           Container(
-                            height: DRAW_MATCH_HEIGHT * 0.32,
+                            height: Constants.kDrawMatchHeight * 0.32,
                             width: 80,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
@@ -212,7 +212,7 @@ class _AddMatchDialogState extends State<AddMatchDialog> {
                                           score[0],
                                           style: TextStyle(
                                             color: score.length == 2
-                                                ? ACCENT_COLOR
+                                                ? Constants.kAccentColor
                                                 : Colors.black,
                                             fontSize: 12,
                                           ),
@@ -222,7 +222,7 @@ class _AddMatchDialogState extends State<AddMatchDialog> {
                             ),
                           ),
                           Container(
-                            height: DRAW_MATCH_HEIGHT * 0.32,
+                            height: Constants.kDrawMatchHeight * 0.32,
                             width: 80,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
@@ -235,7 +235,7 @@ class _AddMatchDialogState extends State<AddMatchDialog> {
                                           score[0],
                                           style: TextStyle(
                                             color: score.length == 2
-                                                ? ACCENT_COLOR
+                                                ? Constants.kAccentColor
                                                 : Colors.black,
                                             fontSize: 12,
                                           ),
@@ -258,7 +258,7 @@ class _AddMatchDialogState extends State<AddMatchDialog> {
         FlatButton(
           child: Text(
             "Agregar",
-            style: TextStyle(color: ACCENT_COLOR),
+            style: TextStyle(color: Constants.kAccentColor),
           ),
           onPressed: addMatch,
         ),
