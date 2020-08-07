@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tennistournamentadmin/providers/players.dart';
-import 'package:tennistournamentadmin/screens/add_player_screen.dart';
+import 'package:tennistournamentadmin/screens/create_player/insert_name_screen.dart';
 import 'package:tennistournamentadmin/widgets/players_list.dart';
 
 class PlayerScreen extends StatelessWidget {
@@ -16,7 +16,7 @@ class PlayerScreen extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.add),
             onPressed: () {
-              Navigator.of(context).pushNamed(AddPlayerScreen.routeName);
+              Navigator.of(context).pushNamed(InsertNameScreen.routeName);
             },
           ),
         ],

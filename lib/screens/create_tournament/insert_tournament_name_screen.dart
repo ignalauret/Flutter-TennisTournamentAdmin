@@ -1,43 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tennistournamentadmin/models/tournament.dart';
 import 'package:tennistournamentadmin/providers/tournaments.dart';
 import 'package:tennistournamentadmin/screens/create_tournament/select_date_screen.dart';
 import 'package:tennistournamentadmin/utils/constants.dart';
 import 'package:tennistournamentadmin/widgets/buttons/action_button.dart';
 import 'package:tennistournamentadmin/widgets/inputs/input_card.dart';
 
-class AddTournamentsScreen extends StatelessWidget {
+class InsertTournamentNameScreen extends StatelessWidget {
   static const routeName = "/add-tournament";
   final nameController = TextEditingController();
-
-//  void addTournament() {
-//    final List<List<String>> playersList =
-//        players.map((playerIds) => playerIds.split(",")).toList();
-//
-//    final Map<String, List<String>> playersMap = {};
-//    Map<String, Draw> draws = {};
-//
-//    for (int i = 0; i < Categories.length; i++) {
-//      playersMap.addAll({Categories[i]: []});
-//      for (int j = 0; j < playersList[i].length; j++) {
-//        playersMap[Categories[i]].add(playersList[i][j]);
-//      }
-//      draws.addAll(
-//        {Categories[i]: Draw.fromPlayerList(playersList[i])},
-//      );
-//    }
-//
-//    final tournament = Tournament(
-//        name: name,
-//        club: club,
-//        start: parseDate(start),
-//        end: parseDate(end),
-//        players: playersMap,
-//        draws: draws);
-//    Provider.of<Tournaments>(context, listen: false).addTournament(tournament);
-//  }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

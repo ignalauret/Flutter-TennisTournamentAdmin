@@ -101,7 +101,8 @@ class DrawMatchCard extends StatelessWidget {
             child: Text(
               score[0],
               style: TextStyle(
-                color: score.length == 2 ? Constants.kAccentColor : Colors.black,
+                color:
+                    score.length == 2 ? Constants.kAccentColor : Colors.black,
                 fontSize: 12,
               ),
             ),
@@ -174,7 +175,7 @@ class DrawMatchCard extends StatelessWidget {
                                   ranking1: ranking1,
                                 ),
                               ).then((result) {
-                                addMatch(result, context);
+                                if (result != null) addMatch(result, context);
                               });
                             },
                           )

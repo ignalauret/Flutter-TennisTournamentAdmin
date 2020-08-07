@@ -18,7 +18,14 @@ class CategoriesChips extends StatelessWidget {
           borderRadius: BorderRadius.circular(Constants.kCardBorderRadius),
         ),
         alignment: Alignment.center,
-        child: Text(label),
+        child: Text(
+          label,
+          style: TextStyle(
+            fontSize: 16,
+            color: selected ? Colors.white : Colors.black,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
       ),
     );
   }

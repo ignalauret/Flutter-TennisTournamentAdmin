@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
             borderRadius: BorderRadius.circular(Constants.kCardBorderRadius),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(15.0),
             child: Column(
               children: <Widget>[
                 Text(
@@ -60,8 +60,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
-                        Text("Ir a $title"),
-                        Icon(Icons.arrow_forward),
+                        Text(
+                          "Ir a $title",
+                          style: TextStyle(
+                            color: Constants.kAccentColor,
+                          ),
+                        ),
+                        Icon(
+                          Icons.arrow_forward,
+                          color: Constants.kAccentColor,
+                          size: 18,
+                        ),
                       ],
                     ),
                     onPressed: () {

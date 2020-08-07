@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tennistournamentadmin/providers/matches.dart';
-import 'package:tennistournamentadmin/providers/players.dart';
 import 'package:tennistournamentadmin/providers/tournaments.dart';
 import 'package:tennistournamentadmin/screens/tournament_draw_screen.dart';
 import 'package:tennistournamentadmin/utils/constants.dart';
@@ -88,8 +87,17 @@ class TournamentDetailScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
-                        Text("Ir a cuadro"),
-                        Icon(Icons.arrow_forward),
+                        Text(
+                          "Ir al cuadro",
+                          style: TextStyle(
+                            color: Constants.kAccentColor,
+                          ),
+                        ),
+                        Icon(
+                          Icons.arrow_forward,
+                          color: Constants.kAccentColor,
+                          size: 18,
+                        ),
                       ],
                     ),
                     onPressed: () {

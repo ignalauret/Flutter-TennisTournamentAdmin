@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tennistournamentadmin/providers/tournaments.dart';
-import 'package:tennistournamentadmin/screens/create_tournament/add_tournament_screen.dart';
+import 'package:tennistournamentadmin/screens/create_tournament/insert_tournament_name_screen.dart';
 import 'package:tennistournamentadmin/widgets/tournaments/tournaments_list.dart';
 
 class TournamentScreen extends StatelessWidget {
@@ -17,7 +17,7 @@ class TournamentScreen extends StatelessWidget {
             icon: Icon(Icons.add),
             iconSize: 30,
             onPressed: () =>
-                Navigator.of(context).pushNamed(AddTournamentsScreen.routeName),
+                Navigator.of(context).pushNamed(InsertTournamentNameScreen.routeName),
           ),
         ],
       ),

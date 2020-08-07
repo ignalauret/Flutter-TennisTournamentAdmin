@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tennistournamentadmin/screens/add_player_screen.dart';
-import 'package:tennistournamentadmin/screens/create_tournament/add_tournament_screen.dart';
-import 'package:tennistournamentadmin/screens/create_tournament/select_categories_screen.dart';
-import 'package:tennistournamentadmin/screens/create_tournament/select_date_screen.dart';
-import 'package:tennistournamentadmin/screens/create_tournament/select_tournament_players.dart';
-import 'package:tennistournamentadmin/screens/player_detail_screen.dart';
-import 'package:tennistournamentadmin/screens/tournament_detail_screen.dart';
-import 'package:tennistournamentadmin/screens/tournament_draw_screen.dart';
+import './screens/create_player/insert_name_screen.dart';
+import './screens/create_player/insert_origin_screen.dart';
+import './screens/create_player/select_birth_screen.dart';
+import './screens/create_player/select_game_screen.dart';
+import './screens/create_tournament/insert_tournament_name_screen.dart';
+import './screens/create_tournament/select_categories_screen.dart';
+import './screens/create_tournament/select_date_screen.dart';
+import './screens/create_tournament/select_tournament_players.dart';
+import './screens/player_detail_screen.dart';
+import './screens/tournament_detail_screen.dart';
+import './screens/tournament_draw_screen.dart';
 import './screens/home_screen.dart';
 import './screens/player_screen.dart';
 import './screens/tournament_screen.dart';
@@ -19,7 +22,6 @@ import './providers/tournaments.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -45,29 +47,27 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          // This is the theme of your application.
-          //
-          // Try running your application with "flutter run". You'll see the
-          // application has a blue toolbar. Then, without quitting the app, try
-          // changing the primarySwatch below to Colors.green and then invoke
-          // "hot reload" (press "r" in the console where you ran "flutter run",
-          // or simply save your changes to "hot reload" in a Flutter IDE).
-          // Notice that the counter didn't reset back to zero; the application
-          // is not restarted.
           primarySwatch: Colors.blue,
         ),
         home: HomeScreen(),
         routes: {
+          // Tournament
           TournamentScreen.routeName: (_) => TournamentScreen(),
-          PlayerScreen.routeName: (_) => PlayerScreen(),
-          AddPlayerScreen.routeName: (_) => AddPlayerScreen(),
           TournamentDraw.routeName: (_) => TournamentDraw(),
           TournamentDetailScreen.routeName: (_) => TournamentDetailScreen(),
-          AddTournamentsScreen.routeName: (_) => AddTournamentsScreen(),
-          PlayerDetailScreen.routeName: (_) => PlayerDetailScreen(),
+          // Add Tournament
+          InsertTournamentNameScreen.routeName: (_) => InsertTournamentNameScreen(),
           SelectDateScreen.routeName: (_) => SelectDateScreen(),
           SelectCategoriesScreen.routeName: (_) => SelectCategoriesScreen(),
           SelectTournamentPlayers.routeName: (_) => SelectTournamentPlayers(),
+          // Players
+          PlayerScreen.routeName: (_) => PlayerScreen(),
+          PlayerDetailScreen.routeName: (_) => PlayerDetailScreen(),
+          // Add players
+          InsertNameScreen.routeName: (_) => InsertNameScreen(),
+          InsertOriginScreen.routeName: (_) => InsertOriginScreen(),
+          SelectBirthScreen.routeName: (_) => SelectBirthScreen(),
+          SelectGameScreen.routeName: (_) => SelectGameScreen(),
         },
       ),
     );

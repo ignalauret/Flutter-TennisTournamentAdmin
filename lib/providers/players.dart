@@ -1,11 +1,49 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:tennistournamentadmin/utils/parsers.dart';
 import '../models/player.dart';
 import 'package:http/http.dart' as http;
 
 class Players extends ChangeNotifier {
   List<Player> _players = [];
+
+  String _newPlayerName;
+  String _newPlayerClub;
+  String _newPlayerNationality;
+  String _newPlayerBirth;
+  String _newPlayerImageUrl;
+  bool _newPlayerRightHanded;
+  bool _newPlayerOneHanded;
+
+
+  set newPlayerName(String value) {
+    _newPlayerName = value;
+  }
+
+  set newPlayerClub(String value) {
+    _newPlayerClub = value;
+  }
+
+  set newPlayerNationality(String value) {
+    _newPlayerNationality = value;
+  }
+
+  set newPlayerBirth(String value) {
+    _newPlayerBirth = value;
+  }
+
+  set newPlayerImageUrl(String value) {
+    _newPlayerImageUrl = value;
+  }
+
+  set newPlayerRightHanded(bool value) {
+    _newPlayerRightHanded = value;
+  }
+
+  set newPlayerOneHanded(bool value) {
+    _newPlayerOneHanded = value;
+  }
 
   Future<List<Player>> fetchPlayers() async {
     if (_players.isNotEmpty) return [..._players];
@@ -25,6 +63,33 @@ class Players extends ChangeNotifier {
   void addPlayer(Player player) {
     _players.add(player);
     notifyListeners();
+  }
+
+  Future<void> createPlayer() async {
+    final players = await http
+        .get("https://tennis-tournament-4990d.firebaseio.com/players.json");
+    final playersList = json.decode(players.body) as List;
+    final playersCount = playersList == null ? 0 : playersList.length;
+    final player = Player(
+      name: _newPlayerName,
+      club: _newPlayerClub,
+      nationality: _newPlayerNationality,
+      backhand: _newPlayerOneHanded ? Backhand.OneHanded : Backhand.TwoHanded,
+      handed: _newPlayerRightHanded ? Handed.Right : Handed.Left,
+      birth: parseDate(_newPlayerBirth),
+      id: playersCount.toString(),
+      profileUrl: "assets/img/ignacio_lauret_profile.png",
+      imageUrl: "assets/img/ignacio_lauret_image.png",
+      bestRankings: {"A": 1000, "B": 1000, "C": 1000},
+      bestRankingsDates: {"A": " ", "B": " ", "C": " "},
+      points: {"A": 0, "B": 0, "C": 0},
+    );
+    addPlayer(player);
+
+    final response = await http.put(
+        "https://tennis-tournament-4990d.firebaseio.com/players/$playersCount.json",
+        body: player.toJson());
+
   }
 
   Future<void> deletePlayer(String playerId) async {
@@ -74,4 +139,6 @@ class Players extends ChangeNotifier {
   int _addPlayerPoints(String id, String category, int points) {
     return getPlayerById(id).points.update(category, (prev) => prev + points);
   }
+
+
 }
