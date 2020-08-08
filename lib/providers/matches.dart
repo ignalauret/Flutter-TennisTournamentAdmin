@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import '../providers/tournaments.dart';
 import '../models/match.dart';
-import 'package:http/http.dart' as http;
 
 class Matches extends ChangeNotifier {
   Matches(this._tournamentsData, this._matches);
@@ -11,10 +11,8 @@ class Matches extends ChangeNotifier {
   final Tournaments _tournamentsData;
   final List<Match> _matches;
 
-  List<Match> get matches {
-    return _matches == null ? [] : [..._matches];
-  }
 
+  /* CRUD Functions */
   Future<List<Match>> fetchMatches() async {
     if (_matches != null && _matches.isNotEmpty) return [..._matches];
     final response = await http
@@ -53,6 +51,7 @@ class Matches extends ChangeNotifier {
         "https://tennis-tournament-4990d.firebaseio.com/matches/$matchId.json");
   }
 
+  /* Delete all matches played on a certain tournament. */
   Future<void> deleteMatchesOfTournament(String tournamentId) async {
     _matches.forEach((match) {
       if (match.tournament == tournamentId) {
@@ -62,13 +61,15 @@ class Matches extends ChangeNotifier {
   }
 
   /* Getters */
+  List<Match> get matches {
+    return _matches == null ? [] : [..._matches];
+  }
 
   Match getMatchById(String id) {
     return _matches.firstWhere((match) => match.id == id);
   }
 
   /* Predicates */
-
   bool playerHasMatches(String playerId) {
     for (Match match in _matches) {
       if (match.idPlayer1 == playerId || match.idPlayer2 == playerId)

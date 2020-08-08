@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tennistournamentadmin/models/player.dart';
-import 'package:tennistournamentadmin/screens/player_detail_screen.dart';
-import '../providers/players.dart';
+import 'package:tennistournamentadmin/screens/player/player_detail_screen.dart';
+import '../../providers/players.dart';
 import 'player_list_item.dart';
 
 class PlayersList extends StatelessWidget {

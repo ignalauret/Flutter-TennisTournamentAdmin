@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:tennistournamentadmin/providers/players.dart';
 import 'package:tennistournamentadmin/providers/tournaments.dart';
 import 'package:tennistournamentadmin/screens/create_tournament/select_categories_screen.dart';
-import 'package:tennistournamentadmin/screens/tournament_screen.dart';
+import 'package:tennistournamentadmin/screens/tournament/tournament_screen.dart';
 import 'package:tennistournamentadmin/utils/constants.dart';
 import 'package:tennistournamentadmin/widgets/buttons/action_button.dart';
 import 'package:tennistournamentadmin/widgets/inputs/selectable_players_list.dart';

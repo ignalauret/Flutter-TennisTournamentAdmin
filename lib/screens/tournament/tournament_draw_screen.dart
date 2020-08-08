@@ -1,14 +1,14 @@
 import 'package:diagonal_scrollview/diagonal_scrollview.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../models/tournament.dart';
-import '../models/match.dart';
-import '../providers/matches.dart';
-import '../providers/players.dart';
-import '../providers/ranking.dart';
-import '../utils/constants.dart';
-import '../utils/math_methods.dart';
-import '../widgets/DrawMatchCard.dart';
+import '../../models/tournament.dart';
+import '../../models/match.dart';
+import '../../providers/matches.dart';
+import '../../providers/players.dart';
+import '../../providers/ranking.dart';
+import '../../utils/constants.dart';
+import '../../utils/math_methods.dart';
+import '../../widgets/tournaments/draw_match_card.dart';
 
 class TournamentDraw extends StatefulWidget {
   static const routeName = "/tournament-draw";

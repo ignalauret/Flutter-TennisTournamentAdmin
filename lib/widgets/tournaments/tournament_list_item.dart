@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:tennistournamentadmin/models/tournament.dart';
-import 'package:tennistournamentadmin/screens/tournament_detail_screen.dart';
+import 'package:tennistournamentadmin/screens/tournament/tournament_detail_screen.dart';
 import 'package:tennistournamentadmin/utils/constants.dart';
 
 class TournamentListItem extends StatelessWidget {

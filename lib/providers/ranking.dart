@@ -3,9 +3,11 @@ import '../models/player.dart';
 
 class Ranking extends ChangeNotifier {
   Ranking(this._players);
+
   final Map<String, List<String>> ranking = {};
   final List<Player> _players;
 
+  /* Ranking constructor */
   List<String> fetchRanking(String category) {
     if (ranking[category] != null) return ranking[category];
     final playersList = [..._players];
@@ -19,6 +21,7 @@ class Ranking extends ChangeNotifier {
     return result;
   }
 
+  /* Getters */
   String getRankingOf(String id, String category) {
     final ranking = fetchRanking(category);
     final index = ranking.indexOf(id);

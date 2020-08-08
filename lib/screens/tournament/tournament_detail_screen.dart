@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tennistournamentadmin/providers/matches.dart';
 import 'package:tennistournamentadmin/providers/tournaments.dart';
-import 'package:tennistournamentadmin/screens/tournament_draw_screen.dart';
+import 'package:tennistournamentadmin/screens/tournament/tournament_draw_screen.dart';
 import 'package:tennistournamentadmin/utils/constants.dart';
-import 'package:tennistournamentadmin/widgets/dialogs/confirm_dialog.dart';
-import '../models/tournament.dart';
+import 'package:tennistournamentadmin/widgets/dialogs/confirm_delete_dialog.dart';
+import '../../models/tournament.dart';
 
 class TournamentDetailScreen extends StatelessWidget {
   static const routeName = "/tournament-detail";
@@ -132,10 +132,11 @@ class TournamentDetailScreen extends StatelessWidget {
               onPressed: () {
                 showDialog(
                   context: context,
-                  builder: (_) => ConfirmDialog(
-                      "Esta seguro que quiere eliminar este torneo?"),
+                  builder: (_) => ConfirmDeleteDialog(
+                    "Esta seguro que quiere eliminar este torneo?",
+                  ),
                 ).then((confirm) {
-                  if (confirm) deleteThisTournament(context, tournament);
+                  if (confirm != null && confirm) deleteThisTournament(context, tournament);
                 });
               },
             ),
@@ -150,8 +151,8 @@ class TournamentDetailScreen extends StatelessWidget {
                 return Container(
                   height: 180,
                   width: double.infinity,
-                  child:
-                      _buildCategoryCard(context, Categories[index], tournament),
+                  child: _buildCategoryCard(
+                      context, Categories[index], tournament),
                 );
               else
                 return Container();

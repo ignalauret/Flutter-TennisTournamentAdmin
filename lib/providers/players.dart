@@ -16,35 +16,7 @@ class Players extends ChangeNotifier {
   bool _newPlayerRightHanded;
   bool _newPlayerOneHanded;
 
-
-  set newPlayerName(String value) {
-    _newPlayerName = value;
-  }
-
-  set newPlayerClub(String value) {
-    _newPlayerClub = value;
-  }
-
-  set newPlayerNationality(String value) {
-    _newPlayerNationality = value;
-  }
-
-  set newPlayerBirth(String value) {
-    _newPlayerBirth = value;
-  }
-
-  set newPlayerImageUrl(String value) {
-    _newPlayerImageUrl = value;
-  }
-
-  set newPlayerRightHanded(bool value) {
-    _newPlayerRightHanded = value;
-  }
-
-  set newPlayerOneHanded(bool value) {
-    _newPlayerOneHanded = value;
-  }
-
+  /* CRUD Functions */
   Future<List<Player>> fetchPlayers() async {
     if (_players.isNotEmpty) return [..._players];
     final List<Player> temp = [];
@@ -84,12 +56,12 @@ class Players extends ChangeNotifier {
       bestRankingsDates: {"A": " ", "B": " ", "C": " "},
       points: {"A": 0, "B": 0, "C": 0},
     );
+    // Add player to local memory.
     addPlayer(player);
-
-    final response = await http.put(
+    // Add player to DB.
+    http.put(
         "https://tennis-tournament-4990d.firebaseio.com/players/$playersCount.json",
         body: player.toJson());
-
   }
 
   Future<void> deletePlayer(String playerId) async {
@@ -112,8 +84,11 @@ class Players extends ChangeNotifier {
     notifyListeners();
   }
 
-  /* Getters */
+  int _addPlayerPoints(String id, String category, int points) {
+    return getPlayerById(id).points.update(category, (prev) => prev + points);
+  }
 
+  /* Getters */
   List<Player> get players {
     return [..._players];
   }
@@ -135,10 +110,31 @@ class Players extends ChangeNotifier {
   }
 
   /* Setters */
-
-  int _addPlayerPoints(String id, String category, int points) {
-    return getPlayerById(id).points.update(category, (prev) => prev + points);
+  set newPlayerName(String value) {
+    _newPlayerName = value;
   }
 
+  set newPlayerClub(String value) {
+    _newPlayerClub = value;
+  }
 
+  set newPlayerNationality(String value) {
+    _newPlayerNationality = value;
+  }
+
+  set newPlayerBirth(String value) {
+    _newPlayerBirth = value;
+  }
+
+  set newPlayerImageUrl(String value) {
+    _newPlayerImageUrl = value;
+  }
+
+  set newPlayerRightHanded(bool value) {
+    _newPlayerRightHanded = value;
+  }
+
+  set newPlayerOneHanded(bool value) {
+    _newPlayerOneHanded = value;
+  }
 }

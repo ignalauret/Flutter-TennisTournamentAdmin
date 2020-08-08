@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tennistournamentadmin/providers/matches.dart';
 import 'package:tennistournamentadmin/utils/parsers.dart';
-import 'package:tennistournamentadmin/widgets/add_match_dialog.dart';
-import '../utils/constants.dart';
-import '../models/match.dart';
-import './ranking_badge.dart';
+import 'package:tennistournamentadmin/widgets/dialogs/add_match_dialog.dart';
+import '../../utils/constants.dart';
+import '../../models/match.dart';
+import '../ranking_badge.dart';
 
 class DrawMatchCard extends StatelessWidget {
   DrawMatchCard({

@@ -4,7 +4,7 @@ import 'package:tennistournamentadmin/models/player.dart';
 import 'package:tennistournamentadmin/providers/matches.dart';
 import 'package:tennistournamentadmin/providers/players.dart';
 import 'package:tennistournamentadmin/providers/tournaments.dart';
-import 'package:tennistournamentadmin/widgets/dialogs/confirm_dialog.dart';
+import 'package:tennistournamentadmin/widgets/dialogs/confirm_delete_dialog.dart';
 
 class PlayerDetailScreen extends StatelessWidget {
   static const routeName = "/player-profile";
@@ -60,10 +60,11 @@ class DeleteButton extends StatelessWidget {
       onPressed: () {
         showDialog(
           context: context,
-          builder: (_) => ConfirmDialog(
-              "Esta seguro que quiere eliminar a ${player.name}?"),
+          builder: (_) => ConfirmDeleteDialog(
+            "Está seguro que quiere eliminar a ${player.name}? Se borrará para siempre de la base de datos.",
+          ),
         ).then((confirm) {
-          if (confirm) deletePlayer(context, player);
+          if (confirm != null && confirm) deletePlayer(context, player);
         });
       },
     );

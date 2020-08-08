@@ -1,4 +1,4 @@
-import '../models/Draw.dart';
+import '../models/draw.dart';
 
 Map<String, List<String>> parsePlayers(Map<String, List> players) {
   final Map<String, List<String>> result = {};

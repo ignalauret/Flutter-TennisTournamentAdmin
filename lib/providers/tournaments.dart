@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
-import 'package:tennistournamentadmin/models/Draw.dart';
+import 'package:tennistournamentadmin/models/draw.dart';
 import 'package:tennistournamentadmin/providers/players.dart';
 import 'package:tennistournamentadmin/utils/parsers.dart';
 import '../utils/math_methods.dart';
@@ -64,6 +64,11 @@ class Tournaments extends ChangeNotifier {
   }
 
   Future<void> createTournament() async {
+    final tournaments = await http
+        .get("https://tennis-tournament-4990d.firebaseio.com/tournaments.json");
+    final tournamentsList = json.decode(tournaments.body) as List;
+    final tournamentsCount =
+      tournamentsList == null ? 0 : tournamentsList.length;
     final Map<String, Draw> draws = {};
     for (int i = 0; i < Categories.length; i++) {
       if (_newTournamentPlayers.containsKey(Categories[i]))
@@ -71,6 +76,7 @@ class Tournaments extends ChangeNotifier {
             Draw.fromPlayerList(_newTournamentPlayers[Categories[i]]);
     }
     final tournament = Tournament(
+      id: tournamentsCount.toString(),
       name: _newTournamentName,
       club: _newTournamentClub,
       start: parseDate(_newTournamentStart),
@@ -82,14 +88,8 @@ class Tournaments extends ChangeNotifier {
   }
 
   Future<void> addTournament(Tournament tournament) async {
-    final tournaments = await http
-        .get("https://tennis-tournament-4990d.firebaseio.com/tournaments.json");
-    final tournamentsList = json.decode(tournaments.body) as List;
-    final tournamentsCount =
-        tournamentsList == null ? 0 : tournamentsList.length;
-    tournament.id = tournamentsCount.toString();
     http.put(
-      "https://tennis-tournament-4990d.firebaseio.com/tournaments/$tournamentsCount.json",
+      "https://tennis-tournament-4990d.firebaseio.com/tournaments/${tournament.id}.json",
       body: tournament.toJson(),
     );
     _tournaments.add(tournament);

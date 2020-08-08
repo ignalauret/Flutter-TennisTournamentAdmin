@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tennistournamentadmin/utils/constants.dart';
+import '../../utils/constants.dart';
 
 class ActionButton extends StatelessWidget {
   ActionButton(this.label, this.onClick);

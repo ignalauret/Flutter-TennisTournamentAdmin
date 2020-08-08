@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tennistournamentadmin/models/player.dart';
-import '../utils/constants.dart';
+import '../../utils/constants.dart';
 
 class PlayerListItem extends StatelessWidget {
   PlayerListItem(this.player);

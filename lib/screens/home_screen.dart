@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tennistournamentadmin/providers/players.dart';
 import 'package:tennistournamentadmin/providers/ranking.dart';
-import 'package:tennistournamentadmin/screens/player_screen.dart';
-import 'package:tennistournamentadmin/screens/tournament_screen.dart';
+import 'package:tennistournamentadmin/screens/player/player_screen.dart';
+import 'package:tennistournamentadmin/screens/tournament/tournament_screen.dart';
 import 'package:tennistournamentadmin/utils/constants.dart';
 
 class HomeScreen extends StatefulWidget {

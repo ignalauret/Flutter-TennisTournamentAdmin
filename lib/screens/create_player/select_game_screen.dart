@@ -5,7 +5,7 @@ import 'package:tennistournamentadmin/utils/constants.dart';
 import 'package:tennistournamentadmin/widgets/buttons/action_button.dart';
 import 'package:tennistournamentadmin/widgets/inputs/categories_chips.dart';
 
-import '../player_screen.dart';
+import '../player/player_screen.dart';
 
 class SelectGameScreen extends StatefulWidget {
   static const routeName = "/player-game";

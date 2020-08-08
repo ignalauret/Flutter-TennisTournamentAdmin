@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 
-import '../models/Draw.dart';
+import '../models/draw.dart';
 import './constants.dart';
 
 double log2(num x) => math.log(x) / math.log(2);

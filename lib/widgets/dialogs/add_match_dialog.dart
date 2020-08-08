@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import '../utils/constants.dart';
-import './ranking_badge.dart';
+import '../../utils/constants.dart';
+import '../ranking_badge.dart';
 
 class AddMatchDialog extends StatefulWidget {
   AddMatchDialog({

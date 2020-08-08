@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:tennistournamentadmin/utils/parsers.dart';
+import '../utils/parsers.dart';
 
 class Match {
   Match({
@@ -16,17 +16,6 @@ class Match {
     @required this.category,
   });
 
-  Match.fromJson(String id, Map<String, dynamic> matchData)
-      : id = id,
-        idPlayer1 = matchData["player1"],
-        idPlayer2 = matchData["player2"],
-        result1 = parseResult(matchData["result1"]),
-        result2 = parseResult(matchData["result2"]),
-        date = parseDateWithHour(matchData["date"]),
-        tournament = matchData["tournament"],
-        round = matchData["round"],
-        category = matchData["category"];
-
   String id;
   final String idPlayer1;
   final String idPlayer2;
@@ -37,20 +26,7 @@ class Match {
   final String round;
   final String category;
 
-  String toJson() {
-    return json.encode({
-      "id": this.id,
-      "player1": this.idPlayer1,
-      "player2": this.idPlayer2,
-      "result1": encodeResult(this.result1),
-      "result2": encodeResult(this.result2),
-      "date": encodeDateWithHour(this.date),
-      "tournament": this.tournament,
-      "category": this.category,
-      "round": this.round,
-    });
-  }
-
+  /* Getters */
   bool get isFirstWinner {
     return int.parse(result1.last) > int.parse(result2.last);
   }
@@ -59,6 +35,7 @@ class Match {
     return isFirstWinner ? idPlayer1 : idPlayer2;
   }
 
+  /* Add a space to the winning result to color it in the match card. */
   List<String> getColouredResult(bool firstPlayer) {
     if (firstPlayer) {
       final result = result1;
@@ -75,5 +52,31 @@ class Match {
       }
       return result;
     }
+  }
+
+  /* Parsers */
+  Match.fromJson(String id, Map<String, dynamic> matchData)
+      : id = id,
+        idPlayer1 = matchData["player1"],
+        idPlayer2 = matchData["player2"],
+        result1 = parseResult(matchData["result1"]),
+        result2 = parseResult(matchData["result2"]),
+        date = parseDateWithHour(matchData["date"]),
+        tournament = matchData["tournament"],
+        round = matchData["round"],
+        category = matchData["category"];
+
+  String toJson() {
+    return json.encode({
+      "id": this.id,
+      "player1": this.idPlayer1,
+      "player2": this.idPlayer2,
+      "result1": encodeResult(this.result1),
+      "result2": encodeResult(this.result2),
+      "date": encodeDateWithHour(this.date),
+      "tournament": this.tournament,
+      "category": this.category,
+      "round": this.round,
+    });
   }
 }

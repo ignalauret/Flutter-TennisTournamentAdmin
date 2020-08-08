@@ -1,8 +1,9 @@
 import 'dart:math';
 
-import 'package:tennistournamentadmin/utils/constants.dart';
-import 'package:tennistournamentadmin/utils/math_methods.dart';
+import '../utils/constants.dart';
+import '../utils/math_methods.dart';
 
+/* The name of the rounds in a tournament, from last to first */
 const List<String> Rounds = [
   "Final",
   "Semifinal",
@@ -19,8 +20,9 @@ class Draw {
     return Draw(buildDraw(playersIds));
   }
 
-  // Generates an entire draw from a list of players.
-  // Made static to use it in factory constructor.
+  /* Generates an entire draw from a list of players.
+   * NOTE: Made static to use it in factory constructor.
+   */
   static List<String> buildDraw(List<String> playersIds) {
     final int nPlayers = playersIds.length;
     if (nPlayers < 2) return [];
@@ -75,18 +77,24 @@ class Draw {
 
   String get actualRound {
     // Find last unplayed match
-    final int lastIndex = _draw.lastIndexWhere((match) => match[match.length-1] == ",");
-    if(lastIndex == -1) return "Terminado";
+    final int lastIndex =
+        _draw.lastIndexWhere((match) => match[match.length - 1] == ",");
+    if (lastIndex == -1) return "Terminado";
     return Rounds[log2(lastIndex + 1).floor()];
   }
 
+  String getMatch(int index) {
+    return _draw[index];
+  }
+
+  /* Sort the draw by round. The first match of the draw list is the final, and
+   * the last one is the last match of the first round.
+   */
   Map<String, List<String>> getSortedDraw() {
     final Map<String, List<String>> temp = {};
     // For each round, add to the map the matches.
     for (int i = 0; i < nRounds; i++) {
-      temp.addAll({
-        Rounds[i]: [],
-      });
+      temp[Rounds[i]] = [];
       if (i == 0) {
         temp[Rounds[i]].add(_draw[0]);
       } else {
@@ -100,10 +108,6 @@ class Draw {
           (round) => result.addAll({round: temp[round]}),
         );
     return result;
-  }
-
-  String getMatch(int index) {
-    return _draw[index];
   }
 
   /* Setters */
