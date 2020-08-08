@@ -47,28 +47,24 @@ class Draw {
           "${playersIds[i]},${playersIds[drawSize - i - 1]},";
       // Add to next match if opponent is Bye.
       if (playersIds[i] == "-1") {
+        // Add player to next match
         result[getNextMatchIndex(nMatches - i - 1)] = addPlayerToMatch(
           playersIds[drawSize - i - 1],
           result[getNextMatchIndex(nMatches - i - 1)],
           nextMatchPosition(nMatches - i - 1),
         );
-//        result[getNextMatchIndex(nMatches - i - 1)] =
-//            nextMatchPosition(nMatches - i - 1) == 0
-//                ? "${playersIds[drawSize - i - 1]},,"
-//                : ",${playersIds[drawSize - i - 1]},";
+        // Set this match to be counted as played.
         result[nMatches - i - 1] =
             "${playersIds[i]},${playersIds[drawSize - i - 1]},-1";
       }
       if (playersIds[drawSize - i - 1] == "-1") {
+        // Add player to next match
         result[getNextMatchIndex(nMatches - i - 1)] = addPlayerToMatch(
           playersIds[i],
           result[getNextMatchIndex(nMatches - i - 1)],
           nextMatchPosition(nMatches - i - 1),
         );
-//        result[getNextMatchIndex(nMatches - i - 1)] =
-//            nextMatchPosition(nMatches - i - 1) == 0
-//                ? "${playersIds[i]},,"
-//                : ",${playersIds[i]},";
+        // Set this match to be counted as played.
         result[nMatches - i - 1] =
             "${playersIds[i]},${playersIds[drawSize - i - 1]},-1";
       }
