@@ -209,6 +209,7 @@ class _TournamentDrawState extends State<TournamentDraw> {
         ModalRoute.of(context).settings.arguments as Map<String, dynamic>;
     final selectedCategory = args["category"];
     final Tournament tournament = args["tournament"];
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Constants.kMainColor,
       appBar: AppBar(
@@ -223,10 +224,10 @@ class _TournamentDrawState extends State<TournamentDraw> {
               );
             return Container(
               child: DiagonalScrollView(
-                maxHeight: tournament.draws[selectedCategory].drawHeight + 20,
+                maxHeight: tournament.draws[selectedCategory].drawHeight + size.height * 0.03,
                 maxWidth: 1000,
                 child: Container(
-                  height: tournament.draws[selectedCategory].drawHeight + 20,
+                  height: tournament.draws[selectedCategory].drawHeight + size.height * 0.03,
                   width: 1000,
                   margin: const EdgeInsets.all(15),
                   child: Row(
