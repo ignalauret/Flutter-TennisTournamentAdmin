@@ -37,28 +37,49 @@ class Draw {
     final List<String> result = List.generate(nMatches, (_) => ",,");
     // Add matches in order
     //TODO: Tournament ranking order.
+    print("Tamaño del cuadro = $drawSize");
     for (int i = 0; i < (drawSize / 2).floor(); i++) {
+      print("i = $i");
+      print("Player 1 = ${playersIds[i]}");
+      print("Player 2 = ${playersIds[drawSize - i - 1]}");
+      print("Next");
       result[nMatches - i - 1] =
-          "${playersIds[2 * i]},${playersIds[2 * i + 1]},";
+          "${playersIds[i]},${playersIds[drawSize - i - 1]},";
       // Add to next match if opponent is Bye.
-      if (playersIds[2 * i] == "-1") {
-        result[getNextMatchIndex(nMatches - i - 1)] =
-            nextMatchPosition(nMatches - i - 1) == 0
-                ? "${playersIds[2 * i + 1]},,"
-                : ",${playersIds[2 * i + 1]},";
+      if (playersIds[i] == "-1") {
+        result[getNextMatchIndex(nMatches - i - 1)] = addPlayerToMatch(
+          playersIds[drawSize - i - 1],
+          result[getNextMatchIndex(nMatches - i - 1)],
+          nextMatchPosition(nMatches - i - 1),
+        );
+//        result[getNextMatchIndex(nMatches - i - 1)] =
+//            nextMatchPosition(nMatches - i - 1) == 0
+//                ? "${playersIds[drawSize - i - 1]},,"
+//                : ",${playersIds[drawSize - i - 1]},";
         result[nMatches - i - 1] =
-            "${playersIds[2 * i]},${playersIds[2 * i + 1]},-1";
+            "${playersIds[i]},${playersIds[drawSize - i - 1]},-1";
       }
-      if (playersIds[2 * i + 1] == "-1") {
-        result[getNextMatchIndex(nMatches - i - 1)] =
-            nextMatchPosition(nMatches - i - 1) == 0
-                ? "${playersIds[2 * i]},,"
-                : ",${playersIds[2 * i]},";
+      if (playersIds[drawSize - i - 1] == "-1") {
+        result[getNextMatchIndex(nMatches - i - 1)] = addPlayerToMatch(
+          playersIds[i],
+          result[getNextMatchIndex(nMatches - i - 1)],
+          nextMatchPosition(nMatches - i - 1),
+        );
+//        result[getNextMatchIndex(nMatches - i - 1)] =
+//            nextMatchPosition(nMatches - i - 1) == 0
+//                ? "${playersIds[i]},,"
+//                : ",${playersIds[i]},";
         result[nMatches - i - 1] =
-            "${playersIds[2 * i]},${playersIds[2 * i + 1]},-1";
+            "${playersIds[i]},${playersIds[drawSize - i - 1]},-1";
       }
     }
     return result;
+  }
+
+  static String addPlayerToMatch(String playerId, String match, int position) {
+    final matchArray = match.split(",");
+    matchArray[position] = playerId;
+    return matchArray[0] + "," + matchArray[1] + ",";
   }
 
   /* Getters */
@@ -72,7 +93,7 @@ class Draw {
   }
 
   double get drawHeight {
-    return pow(2, nRounds - 1) * Constants.kDrawMatchHeight;
+    return pow(2, nRounds - 1) * (Constants.kDrawMatchHeight + 2);
   }
 
   String get actualRound {
